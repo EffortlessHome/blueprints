@@ -27,18 +27,17 @@ blueprint:
               filter:
                 - domain: alarm_control_panel
 
-
-  trigger:
-  - at: input_datetime.paramgoodmorningtime
-    platform: time
-  condition:
-  - condition: state
-    entity_id: !input issomeonehome
-    state: 'on'
-  action:
-  - service: alarmo.disarm
-    data:
-      entity_id: !input securityalarm
-  - service: input_boolean.turn_off
-    target:
-      entity_id: !input goodnightranforday
+trigger:
+- at: input_datetime.paramgoodmorningtime
+  platform: time
+condition:
+- condition: state
+  entity_id: !input issomeonehome
+  state: 'on'
+action:
+- service: alarmo.disarm
+  data:
+    entity_id: !input securityalarm
+- service: input_boolean.turn_off
+  target:
+    entity_id: !input goodnightranforday
