@@ -1,0 +1,42 @@
+blueprint:
+  name: Water Alarm Triggered
+  description: Set the actions to take when a water alarm is triggered
+  domain: automation
+  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_water_alarm.yaml
+  input:
+    watersensor:
+      name: Water Leak Sensor
+      description: The triggering water leak sensor
+      selector:
+          entity:
+              filter:
+                - domain: binary_sensor
+    stopwaterswitch:
+      name: The Stop Water Switch
+      description: Turn on the stop water switch
+      selector:
+          entity:
+              filter:
+                - domain: switch
+    wellpumpswitch:
+      name: The Well Pump Switch
+      description: Turn off the well pump switch
+      selector:
+          entity:
+              filter:
+                - domain: switch
+trigger:
+- platform: state
+  entity_id:
+  - !input watersensor
+  to: 'on'
+action:
+- service: notify.notify
+  data:
+    message: Water Sensor Activated. Check for water immediately.
+- service: switch.turn_on
+  target:
+    entity_id: !input stopwaterswitch
+- service: switch.turn_off
+  target:
+    entity_id: !input wellpumpswitch
