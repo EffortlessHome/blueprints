@@ -1,0 +1,44 @@
+blueprint:
+  name: Good Morning
+  description: At morning, disarm alarm, enable person detection, stop sleeping setting
+  domain: automation
+  author: EffortlessHome
+  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_goodmorning.yaml
+  input:
+    goodnightranforday:
+      name: goodnightranforday
+      description: goodnightranforday
+      selector:
+          entity:
+              filter:
+                - domain: input_boolean
+    issomeonehome:
+      name: issomeonehome
+      description: issomeonehome
+      selector:
+          entity:
+              filter:
+                - domain: input_boolean
+    securityalarm:
+      name: Security Alarm
+      description: The security alarm to disable
+      selector:
+          entity:
+              filter:
+                - domain: alarm_control_panel
+
+
+  trigger:
+  - at: input_datetime.paramgoodmorningtime
+    platform: time
+  condition:
+  - condition: state
+    entity_id: !input issomeonehome
+    state: 'on'
+  action:
+  - service: alarmo.disarm
+    data:
+      entity_id: !input securityalarm
+  - service: input_boolean.turn_off
+    target:
+      entity_id: !input goodnightranforday
