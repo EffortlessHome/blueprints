@@ -1,0 +1,98 @@
+blueprint:
+  name: Goodnight
+  description: Actions to take when going to bed for the night
+  domain: automation
+  author: EffortlessHome
+  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_goodnight.yaml
+  input:
+    goodnightranforday:
+      name: goodnightranforday
+      description: goodnightranforday
+      selector:
+          entity:
+              filter:
+                - domain: input_boolean
+    lighttoturnon:
+      name: Lights to turn on
+      description: Turn on these lights
+      selector:
+          entity:
+              filter:
+                - domain: light
+    garagedoor:
+      name: The garage door
+      description: Close this garage door
+      selector:
+          entity:
+              filter:
+                - domain: cover
+    securityalarm:
+      name: Security Alarm
+      description: The security alarm to disable
+      selector:
+          entity:
+              filter:
+                - domain: alarm_control_panel
+    doorlock:
+      name: Door Lock
+      description: The door lock to unlock
+      selector:
+          entity:
+              filter:
+                - domain: lock
+    plugtoturnoff:
+      name: Plugs to turn off
+      description: Turn off these plugs
+      selector:
+          entity:
+              filter:
+                - domain: switch
+
+    lighttoturnoff:
+      name: Lights to turn off
+      description: Turn off these lights
+      selector:
+          entity:
+              filter:
+                - domain: light
+trigger:
+- at: '22:15:00'
+  platform: time
+  enabled: false
+condition:
+- condition: state
+  entity_id: !input goodnightranforday
+  state: 'off'
+action:
+- service: input_boolean.turn_on
+  target:
+    entity_id: !input goodnightranforday
+- service: light.turn_on
+  data:
+    brightness_pct: 5
+  target:
+    entity_id:
+    - !input lighttoturnon
+- service: alarmo.arm
+  data:
+    mode: home
+    skip_delay: false
+    force: false
+    entity_id: !input securityalarm
+- service: switch.turn_off
+  target:
+    entity_id: !input plugtoturnoff
+- service: lock.lock
+  target:
+    entity_id: !input doorlock
+- service: cover.close_cover
+  target:
+    entity_id: !input garagedoor
+- delay:
+    hours: 0
+    minutes: 6
+    seconds: 0
+    milliseconds: 0
+- service: light.turn_off
+  target:
+    entity_id: !input lighttoturnoff
