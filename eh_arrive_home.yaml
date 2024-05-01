@@ -1,0 +1,51 @@
+blueprint:
+  name: Arrive Home
+  description: Set the actions to take when the first person to arrive home arrives
+  domain: automation
+  source_url: https://www.effortlesshome.co/blueprints/automation/EffortlessHome/eh_arrive_home.yaml
+  input:
+    issomeonehome:
+      name: Is Someone Home Flag
+      description: This is the state indicating if someone is already home_value01
+      selector:
+          entity:
+              filter:
+                - domain: input_boolean
+    securityalarm:
+      name: Security Alarm
+      description: The security alarm to disable
+      selector:
+          entity:
+              filter:
+                - domain: alarm_control_panel
+    doorlock:
+      name: Door Lock
+      description: The door lock to unlock
+      selector:
+          entity:
+              filter:
+                - domain: lock
+    simulatepresenceswitch:
+      name: The Simulate Presence Switch
+      description: Turn off the simulate presence switch if it is on
+      selector:
+          entity:
+              filter:
+                - domain: switch
+
+trigger:
+  - platform: state
+    entity_id: !input issomeonehome
+    from: 'off'
+    to: 'on'
+
+action:
+  - service: switch.turn_off
+    target:
+      entity_id: !input simulatepresenceswitch
+  - service: alarmo.disarm
+    data:
+      entity_id: !input securityalarm
+  - service: lock.unlock
+    target:
+      entity_id: !input doorlock
