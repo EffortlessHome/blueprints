@@ -1,48 +1,36 @@
 blueprint:
-  name: Good Morning
-  description: At morning, disarm alarm, enable person detection, stop sleeping setting
+  name: Home Assistant DB Cleanup
+  description: Actions to take and timing for the Home Assistant Database Cleanup. This includes steps such as sensor history to retain. Maintenance is required to keep optimized performance.
+  
   domain: automation
   author: EffortlessHome
-  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_goodmorning.yaml
+  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_homeassistantdb_cleanup.yaml
   input:
-    goodnightranforday:
-      name: goodnightranforday
-      description: goodnightranforday
+    retention_days:
+      name: Days Of History To Retain
+      description: The number of days of event and sensor history to retain. Default is 14 days.
+      default: 14
       selector:
-        entity:
-          filter:
-          - domain:
-            - input_boolean
-          multiple: false
-    issomeonehome:
-      name: issomeonehome
-      description: issomeonehome
+        number:
+          min: 1.0
+          max: 30.0
+          unit_of_measurement: days
+          mode: box
+          step: 1.0    
+            
+    execution_time:
+      name: What time of the day will the Maintenance Job run
+      description: The time of day when this will run each day. Strongly recommend during a low usage time. 
+   #   default: 1
       selector:
-        entity:
-          filter:
-          - domain:
-            - input_boolean
-          multiple: false
-    securityalarm:
-      name: Security Alarm
-      description: The security alarm to disable
-      selector:
-        entity:
-          filter:
-          - domain:
-            - alarm_control_panel
-          multiple: false
+        time         
 trigger:
-- at: input_datetime.paramgoodmorningtime
+- at: !input execution_time
   platform: time
-condition:
-- condition: state
-  entity_id: !input issomeonehome
-  state: 'on'
+condition: []
 action:
-- service: alarmo.disarm
+- service: recorder.purge
   data:
-    entity_id: !input securityalarm
-- service: input_boolean.turn_off
-  target:
-    entity_id: !input goodnightranforday
+    keep_days: !input retention_days
+    repack: true
+
