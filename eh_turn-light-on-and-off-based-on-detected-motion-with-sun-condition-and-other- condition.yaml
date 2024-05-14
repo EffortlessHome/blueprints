@@ -11,7 +11,7 @@ blueprint:
           - binary_sensor
           device_class:
           - motion
-          - presence
+          - occupancy
           multiple: false
     light_target:
       name: Light
