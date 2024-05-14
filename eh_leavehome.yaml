@@ -48,6 +48,10 @@ action:
 - service: alarmo.disarm
   data:
     entity_id: !input securityalarm
+    mode: away
 - service: light.turn_off
   target:
     entity_id: !input lightgroup
+- service: switch.turn_on
+  target:
+    entity_id: switch.simulatepresencewhenaway
