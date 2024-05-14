@@ -2,6 +2,7 @@ blueprint:
   name: Arrive Home
   description: Set the actions to take when the first person to arrive home arrives
   domain: automation
+  author: EffortlessHome
   source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_arrive_home.yaml
   input:
     issomeonehome:
