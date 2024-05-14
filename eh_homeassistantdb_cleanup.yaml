@@ -24,6 +24,13 @@ blueprint:
    #   default: 1
       selector:
         time:         
+    additional_actions:
+      name: Additional Actions After
+      description: Add additional actions to the script. Will execute after everything
+        else.
+      default: []
+      selector:
+        action: {}
 trigger:
 - at: !input execution_time
   platform: time
@@ -33,4 +40,5 @@ action:
   data:
     keep_days: !input retention_days
     repack: true
-
+- choose: []
+  default: !input additional_actions
