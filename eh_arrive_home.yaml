@@ -40,6 +40,14 @@ blueprint:
           - domain:
             - switch
           multiple: false
+    additional_actions:
+      name: Additional Actions
+      description: Add additional actions to the script. Will execute after everything
+        else.
+      default: []
+      selector:
+        action: {}
+
 trigger:
 - platform: state
   entity_id: !input issomeonehome
@@ -55,3 +63,5 @@ action:
 - service: lock.unlock
   target:
     entity_id: !input doorlock
+- choose: []
+  default: !input additional_actions
