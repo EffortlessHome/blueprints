@@ -23,7 +23,7 @@ blueprint:
       description: The time of day when this will run each day. Strongly recommend during a low usage time. 
    #   default: 1
       selector:
-        time         
+        time:         
 trigger:
 - at: !input execution_time
   platform: time
