@@ -1,22 +1,13 @@
 blueprint:
-  name: Good Morning
-  description: At morning, disarm alarm, enable person detection, stop sleeping setting
+  name: Leave Home
+  description: Actions to take when leaving home and no one left at home
   domain: automation
   author: EffortlessHome
-  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_goodmorning.yaml
+  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_leavehome.yaml
   input:
-    goodnightranforday:
-      name: goodnightranforday
-      description: goodnightranforday
-      selector:
-        entity:
-          filter:
-          - domain:
-            - input_boolean
-          multiple: false
     issomeonehome:
       name: issomeonehome
-      description: issomeonehome
+      description: The issomeonehome flag to use to determine if anyone remains at home
       selector:
         entity:
           filter:
@@ -32,17 +23,31 @@ blueprint:
           - domain:
             - alarm_control_panel
           multiple: false
+
+    lightgroup:
+      name: Light Group
+      description: The Light Group To Turn Off. Recommend creating a group called "All Lights" and using that.
+      selector:
+        entity:
+          filter:
+          - domain:
+            - light
+          multiple: false          
 trigger:
-- at: input_datetime.paramgoodmorningtime
-  platform: time
-condition:
-- condition: state
-  entity_id: !input issomeonehome
-  state: 'on'
+- platform: state
+  entity_id:
+    - input_boolean.issomeonehome
+  from: "on"
+  to: "off"
+  for:
+    hours: 0
+    minutes: 5
+    seconds: 0
+condition: []
 action:
 - service: alarmo.disarm
   data:
     entity_id: !input securityalarm
-- service: input_boolean.turn_off
+- service: light.turn_off
   target:
-    entity_id: !input goodnightranforday
+    entity_id: !input lightgroup
