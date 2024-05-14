@@ -23,7 +23,7 @@ blueprint:
           target:
            entity:
            - domain:
-            - camera
+             - camera
           multiple: false            
     cameraname:
       name: cameraname
