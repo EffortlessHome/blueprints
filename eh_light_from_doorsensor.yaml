@@ -1,13 +1,13 @@
 blueprint:
-  name: Closet Light from Door Sensor
+  name: Light from Door Sensor
   description: 'Automatically actitvate a light with a door sensor attached to the
     door, activating a smart switch or light.  The light will turn off at the end
     of a timer, or when you close the door.  Logic is also implemented to turn off
     the light in the event it''s manually turned on while the door is open or after
-    the automation has already run.
-
-    '
+    the automation has already run.'
   domain: automation
+  author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_light_from_doorsensor.yaml
   input:
     door_sensor:
       name: Door Sensor
@@ -26,7 +26,7 @@ blueprint:
             - switch
     light_timeout:
       name: Light Timeout
-      description: How long to let the light run with the door open.
+      description: How long to let the light run with the door open (in seconds).
       default: 300
       selector:
         number:
@@ -35,7 +35,6 @@ blueprint:
           unit_of_measurement: seconds
           mode: slider
           step: 60.0
-  source_url: https://gist.github.com/mkosmo/90b2f06d726c72664230a60048cdf0a4
 mode: single
 max_exceeded: silent
 trigger:
