@@ -11,6 +11,7 @@ blueprint:
           - binary_sensor
           device_class:
           - motion
+          - presence
           multiple: false
     light_target:
       name: Light
