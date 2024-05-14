@@ -39,13 +39,11 @@ trigger:
   to: "on"
 condition: []
 action:
- - variables:
-      motionimagefilename: "{{ now().strftime(\"%Y%m%d-%H%M%S\") }}.jpg"
+- variables:
+  motionimagefilename: "{{ now().strftime(\"%Y%m%d-%H%M%S\") }}.jpg"
 - service: camera.snapshot
   data:
     filename: /media/motion/{{!input cameraname}}/{{motionimagefilename}}
   target:
     entity_id: !input camera_name
-- service: input_boolean.turn_off
-  target:
-    entity_id: !input goodnightranforday
+
