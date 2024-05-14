@@ -15,6 +15,16 @@ blueprint:
             domain:
             - binary_sensor
           multiple: false  
+
+    camera_entity:
+      name: Camera 
+      selector:
+        entity:
+          target:
+           entity:
+           - domain:
+            - camera
+          multiple: false            
     cameraname:
       name: cameraname
       description: The name of the camera (don't use spaces or special characters)
@@ -38,7 +48,7 @@ action:
   data:
     filename: /media/motion/{{!input cameraname}}/{{motionimagefilename}}
   target:
-    entity_id: camera.doorbellcam1_fluent
+    entity_id: !input camera_name
 - service: input_boolean.turn_off
   target:
     entity_id: !input goodnightranforday
