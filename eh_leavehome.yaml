@@ -32,7 +32,14 @@ blueprint:
           filter:
           - domain:
             - light
-          multiple: false          
+          multiple: false        
+          
+    additional_actions:
+      name: Additional Actions 
+      description: Add additional actions to complete. Will execute at the end.
+      default: []
+      selector:
+        action: {}          
 trigger:
 - platform: state
   entity_id:
@@ -55,3 +62,6 @@ action:
 - service: switch.turn_on
   target:
     entity_id: switch.simulatepresencewhenaway
+
+- choose: []
+  default: !input additional_actions
