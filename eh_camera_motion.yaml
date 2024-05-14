@@ -37,9 +37,8 @@ blueprint:
 
 trigger:
   platform: state
-    entity_id:
-      - !input motion_entity
-    to: "on"
+  entity_id: !input motion_entity
+  to: "on"
 condition: []
 action:
  - variables:
