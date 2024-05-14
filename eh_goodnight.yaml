@@ -3,58 +3,71 @@ blueprint:
   description: Actions to take when going to bed for the night
   domain: automation
   author: EffortlessHome
-  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_goodnight.yaml
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_goodnight.yaml
   input:
     goodnightranforday:
       name: goodnightranforday
       description: goodnightranforday
       selector:
-          entity:
-              filter:
-                - domain: input_boolean
+        entity:
+          filter:
+          - domain:
+            - input_boolean
+          multiple: false
     lighttoturnon:
       name: Lights to turn on
       description: Turn on these lights
       selector:
-          entity:
-              filter:
-                - domain: light
+        entity:
+          filter:
+          - domain:
+            - light
+          multiple: false
     garagedoor:
       name: The garage door
       description: Close this garage door
       selector:
-          entity:
-              filter:
-                - domain: cover
+        entity:
+          filter:
+          - domain:
+            - cover
+          multiple: false
     securityalarm:
       name: Security Alarm
       description: The security alarm to disable
       selector:
-          entity:
-              filter:
-                - domain: alarm_control_panel
+        entity:
+          filter:
+          - domain:
+            - alarm_control_panel
+          multiple: false
     doorlock:
       name: Door Lock
       description: The door lock to unlock
       selector:
-          entity:
-              filter:
-                - domain: lock
+        entity:
+          filter:
+          - domain:
+            - lock
+          multiple: false
     plugtoturnoff:
       name: Plugs to turn off
       description: Turn off these plugs
       selector:
-          entity:
-              filter:
-                - domain: switch
-
+        entity:
+          filter:
+          - domain:
+            - switch
+          multiple: false
     lighttoturnoff:
       name: Lights to turn off
       description: Turn off these lights
       selector:
-          entity:
-              filter:
-                - domain: light
+        entity:
+          filter:
+          - domain:
+            - light
+          multiple: false
 trigger:
 - at: '22:15:00'
   platform: time

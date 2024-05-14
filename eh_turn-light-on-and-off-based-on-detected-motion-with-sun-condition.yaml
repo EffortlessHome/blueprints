@@ -1,6 +1,6 @@
 blueprint:
   name: Motion-activated Light with sun condition
-  description: Turn on a light when motion is detected and sunset.
+  description: Turn on a light when motion or presence is detected and after sunset.
   domain: automation
   input:
     motion_entity:
@@ -11,7 +11,8 @@ blueprint:
           - binary_sensor
           device_class:
           - motion
-          multiple: false
+          - occupancy
+          multiple: true
     light_target:
       name: Light
       selector:
@@ -52,7 +53,6 @@ blueprint:
           unit_of_measurement: minutes
           step: 1.0
           mode: slider
-
   source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_turn-light-on-and-off-based-on-detected-motion-with-sun-condition.yaml
 mode: restart
 max_exceeded: silent
@@ -70,7 +70,6 @@ condition:
   - condition: sun
     before: sunrise
     before_offset: !input sunrise_offset
-
 action:
 - service: light.turn_on
   target: !input light_target

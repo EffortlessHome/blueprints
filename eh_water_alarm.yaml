@@ -8,23 +8,29 @@ blueprint:
       name: Water Leak Sensor
       description: The triggering water leak sensor
       selector:
-          entity:
-              filter:
-                - domain: binary_sensor
+        entity:
+          filter:
+          - domain:
+            - binary_sensor
+          multiple: false
     stopwaterswitch:
       name: The Stop Water Switch
       description: Turn on the stop water switch
       selector:
-          entity:
-              filter:
-                - domain: switch
+        entity:
+          filter:
+          - domain:
+            - switch
+          multiple: false
     wellpumpswitch:
       name: The Well Pump Switch
       description: Turn off the well pump switch
       selector:
-          entity:
-              filter:
-                - domain: switch
+        entity:
+          filter:
+          - domain:
+            - switch
+          multiple: false
 trigger:
 - platform: state
   entity_id:

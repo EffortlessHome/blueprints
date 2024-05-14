@@ -52,15 +52,7 @@ blueprint:
           unit_of_measurement: minutes
           step: 1.0
           mode: slider
-    goodnightranforday:
-      name: goodnightranforday
-      description: goodnightranforday
-      selector:
-        entity:
-          filter:
-          - domain:
-            - input_boolean
-          multiple: false
+
   source_url:  https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_turn-light-on-and-off-based-on-detected-motion-with-sun-condition-and-other-condition.yaml
 mode: restart
 max_exceeded: silent
@@ -78,9 +70,7 @@ condition:
   - condition: sun
     before: sunrise
     before_offset: !input sunrise_offset
-- condition: state
-  entity_id: !input goodnightranforday
-  state: 'off'
+
 action:
 - service: light.turn_on
   target: !input light_target
