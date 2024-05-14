@@ -153,7 +153,7 @@ variables:
   notification_title: !input notification_title
   notification_message: !input notification_message
   file_path: /media/snapshots/{{ states[camera].object_id }}/last_motion.jpg
-  archive_file_path: /media/snapshots/{{ states[camera].object_id }}/archive/motion_{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg
+  archive_file_path: /media/snapshots/{{ states[camera].object_id }}/archive/motion/{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg
   delay: !input delay
   delay_notification: !input delay_notification
   snapshot_create_file_path: file_path
