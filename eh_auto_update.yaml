@@ -1,6 +1,5 @@
 blueprint:
   name: Home Assistant Auto-update on a schedule base
-  author: Edward Firmo (https://github.com/edwardtfn)
   homeassistant:
     min_version: 2023.3.0
   description: '# Home Assistant Auto-update
@@ -18,11 +17,11 @@ blueprint:
     around the risks involved on auto-updating the system.
 
     For questions and suggestions, please use [this thread in Home Assistant Community
-    portal](https://community.home-assistant.io/t/scheduled-auto-update-for-home-assistant/459281).
-
-    '
+    portal](https://community.home-assistant.io/t/scheduled-auto-update-for-home-assistant/459281).'
   domain: automation
-  source_url: https://raw.githubusercontent.com/edwardtfn/HomeAssistant-Config/main/blueprints/automation/EdwardTFN/auto_update_scheduled.yaml
+  author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_auto_update.yaml
+  
   input:
     verbose_logging_bool:
       name: Log addon progress with verbosity to the logbook?
