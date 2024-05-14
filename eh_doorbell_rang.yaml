@@ -59,8 +59,7 @@ blueprint:
       default: ''
     notification_title:
       name: Notification title
-      description: 'Default: "Motion detected!"'
-      default: Motion detected!
+      default: Doorbell Pressed
     notification_message:
       name: Notification message
       default: '{{ sensor_name }} doorbell was pressed. Snapshot from {{ camera_name
