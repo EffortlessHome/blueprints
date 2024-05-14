@@ -15,16 +15,14 @@ blueprint:
             domain:
             - binary_sensor
           multiple: false  
-
+           
     camera_entity:
-      name: Camera 
+      name: Camera
       selector:
-        entity:
-          target:
-           entity:
-           - domain:
-             - camera
-          multiple: false            
+        target:
+          entity:
+          - domain:
+            - camera
     cameraname:
       name: cameraname
       description: The name of the camera (don't use spaces or special characters)
