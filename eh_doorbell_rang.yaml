@@ -150,7 +150,7 @@ variables:
     now().strftime("%Y%m%d-%H%M%S") }}.jpg
   delay: !input delay
   delay_notification: !input delay_notification
-  snapshot_create_file_path: file_path
+  snapshot_create_file_path: !input file_path
   snapshot_access_file_path: '{{ snapshot_create_file_path | replace(''/media'',''/media/local'')
     }}'
   condition: !input condition
