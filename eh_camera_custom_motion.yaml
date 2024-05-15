@@ -13,7 +13,7 @@ blueprint:
           domain:
           - binary_sensor
           multiple: false
-    camera:
+   camera:
       name: Camera
       description: The camera which creates the snapshot
       selector:
