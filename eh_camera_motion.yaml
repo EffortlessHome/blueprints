@@ -183,7 +183,7 @@ action:
 - service: camera.snapshot
   entity_id: !input camera
   data:
-    filename: '{{ file_path }}'
+    filename: !input file_path
 - if:
   - condition: template
     value_template: !input notify
