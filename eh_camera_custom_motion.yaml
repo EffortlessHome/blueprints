@@ -5,19 +5,26 @@ blueprint:
   author: EffortlessHome
   source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_camera_custom_motion.yaml
   input:
-    motion_entity:
-    name: Motion Sensor
-    selector:
-      entity:
-        filter:
-        - device_class:
-          - motion
+   sensor:
+      name: Motion or Binary Sensor
+      description: The sensor wich triggers the snapshot creation
+      selector:
+        entity:
           domain:
           - binary_sensor
-        multiple: false
-    goodnightranforday:
-      name: goodnightranforday
-      description: goodnightranforday
+          multiple: false
+    camera:
+      name: Camera
+      description: The camera which creates the snapshot
+      selector:
+        entity:
+          domain:
+          - camera
+          multiple: false
+                 
+    inputbool_for_personmotion:
+      name: Input Bool For Camera Person Detection
+      description: Input Bool For Camera Person Detection
       selector:
         entity:
           filter:
@@ -26,16 +33,64 @@ blueprint:
           multiple: false
 
 trigger:
-- at: input_datetime.paramgoodmorningtime
-  platform: time
-condition:
-- condition: state
-  entity_id: !input issomeonehome
-  state: 'on'
+- platform: state
+  entity_id: !input sensor
+  from: 'off'
+  to: 'on'
+
+variables:
+  motionimagefilename: "{{ now().strftime(\"%Y%m%d-%H%M%S\") }}.jpg"
+  cameraname: '{{ states[camera].object_id }}'
+
 action:
-- service: alarmo.disarm
-  data:
-    entity_id: !input securityalarm
-- service: input_boolean.turn_off
-  target:
-    entity_id: !input goodnightranforday
+- service: google_generative_ai_conversation.generate_content
+    data:
+      prompt: >-
+        Very briefly describe what you see in this image from my backyard
+        camera. Your message needs to be short to fit in a phone notification.
+        Don't describe stationary objects or buildings.
+      image_filename: /media/snapshots/{{cameraname}}/{{motionimagefilename}}
+    response_variable: content
+  - condition: or
+    conditions:
+      - condition: template
+        value_template: "{{ 'person' in content.text}}"
+      - condition: template
+        value_template: "{{ 'man' in content.text}}"
+      - condition: template
+        value_template: "{{ 'woman' in content.text}}"
+      - condition: template
+        value_template: "{{ 'girl' in content.text}}"
+      - condition: template
+        value_template: "{{ 'boy' in content.text}}"
+    enabled: true
+  - service: camera.snapshot
+    data:
+      filename: /media/snapshots/{{cameraname}}/{{motionimagefilename}}
+    target:
+      entity_id: !input camera
+  - service: notify.notify
+    data:
+      title: Person Detected By {{cameraname}}
+      message: "{{ content.text }}"
+      data:
+        image: /media/snapshots/{{cameraname}}/{{motionimagefilename}}
+        actions:
+          - action: SNOOZE
+            title: Snooze Motion 1 hour
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input! inputbool_for_personmotion
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 20
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input! inputbool_for_personmotion
+mode: single
