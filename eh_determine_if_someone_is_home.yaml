@@ -1,48 +1,54 @@
 blueprint:
-  name: Good Morning
-  description: At morning, disarm alarm, enable person detection, stop sleeping setting
+  name: Determine if Someone is in the Zone
+  description: Determine if Someone is in the Zone using Person entities and other devices
   domain: automation
   author: EffortlessHome
-  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_goodmorning.yaml
+  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_determine_if_someone_is_home.yaml
   input:
-    goodnightranforday:
-      name: goodnightranforday
-      description: goodnightranforday
-      selector:
-        entity:
-          filter:
-          - domain:
-            - input_boolean
-          multiple: false
-    issomeonehome:
-      name: issomeonehome
-      description: issomeonehome
-      selector:
-        entity:
-          filter:
-          - domain:
-            - input_boolean
-          multiple: false
-    securityalarm:
-      name: Security Alarm
-      description: The security alarm to disable
-      selector:
-        entity:
-          filter:
-          - domain:
-            - alarm_control_panel
-          multiple: false
+      zone_input:
+          name: Zone
+          description: Select a zone to monitor
+          default: "zone.home"
+          selector:
+              entity:
+                  filter:
+                      domain: zone
+      person_input:
+          name: Entities with location
+          description: Select entities to track
+          selector:
+              entity:
+                  multiple: true
+                  filter:
+                      domain: person
+      additional_conditions:
+          name: Conditions
+          default: []
+          description: Any additional conditions
+          selector:
+              condition:
+      actions:
+          name: Actions
+          description: Add an action to run when last tracked person leaves selected zone.
+          selector:
+              action:
+                
+variables:
+  person_list_variable: !input person_input
+  zone_variable: !input zone_input
+  
 trigger:
-- at: input_datetime.paramgoodmorningtime
-  platform: time
+    platform: state
+    entity_id: !input zone_input
+
 condition:
-- condition: state
-  entity_id: !input issomeonehome
-  state: 'on'
-action:
-- service: alarmo.disarm
-  data:
-    entity_id: !input securityalarm
-- service: input_boolean.turn_off
-  target:
-    entity_id: !input goodnightranforday
+    - and: !input additional_conditions
+    - alias: Internal logic
+      condition: not
+      conditions:
+          - condition: template
+            value_template: '{{ (person_list_variable + state_attr(zone_variable, "persons")) | count != dict.fromkeys(person_list_variable + state_attr(zone_variable, "persons")) | count }}'
+
+action: !input actions
+
+mode: single
