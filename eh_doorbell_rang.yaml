@@ -24,8 +24,8 @@ blueprint:
     file_path:
       name: File Path
       description: The file path to store the most current snapshot. Defaults to **/media/snapshots/<camera_name>**
-        - `/media/snapshots/{{ states[camera].object_id }}/last_motion.jpg`.
-      default: /media/snapshots/{{ states[camera].object_id }}/last_motion.jpg          
+        - `/media/snapshots/{{ states[camera].object_id }}/last_doorbell.jpg`.
+      default: /media/snapshots/{{ states[camera].object_id }}/last_doorbell.jpg          
     delay:
       name: Snapshot Delay
       description: Wait before creating camera snapshot.
