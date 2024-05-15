@@ -22,7 +22,7 @@ blueprint:
           - camera
           multiple: false
                  
-    inputbool_for_personmotion:
+   inputbool_for_personmotion:
       name: Input Bool For Camera Person Detection
       description: Input Bool For Camera Person Detection
       selector:
