@@ -25,7 +25,11 @@ blueprint:
           domain:
           - camera
           multiple: false
-
+    file_path:
+      name: File Path
+      description: The file path to store the most current snapshot. Defaults to **/media/snapshots/<camera_name>**
+        - `/media/snapshots/{{ states[camera].object_id }}/last_person.jpg`.
+      default: /media/snapshots/{{ states[camera].object_id }}/last_person.jpg  
     delay:
       name: Snapshot Delay
       description: Wait before creating camera snapshot.
@@ -179,7 +183,7 @@ action:
 - service: camera.snapshot
   entity_id: !input camera
   data:
-    filename: '{{ file_path }}'
+    filename: !input file_path
 - if:
   - condition: template
     value_template: !input notify
