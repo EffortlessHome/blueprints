@@ -21,6 +21,11 @@ blueprint:
           domain:
           - camera
           multiple: false
+    file_path:
+      name: File Path
+      description: The file path to store the most current snapshot. Defaults to **/media/snapshots/<camera_name>**
+        - `/media/snapshots/{{ states[camera].object_id }}/last_motion.jpg`.
+      default: /media/snapshots/{{ states[camera].object_id }}/last_motion.jpg          
     delay:
       name: Snapshot Delay
       description: Wait before creating camera snapshot.
@@ -140,7 +145,7 @@ variables:
   date: '{{ now().strftime("%Y-%m-%d") }}'
   notification_title: !input notification_title
   notification_message: !input notification_message
-  file_path: /media/snapshots/{{ states[camera].object_id }}/last_doorbell.jpg
+  file_path: !input file_path
   archive_file_path: /media/snapshots/{{ states[camera].object_id }}/archive/doorbell/{{
     now().strftime("%Y%m%d-%H%M%S") }}.jpg
   delay: !input delay
