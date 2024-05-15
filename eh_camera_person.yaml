@@ -152,7 +152,7 @@ variables:
   date: '{{ now().strftime("%Y-%m-%d") }}'
   notification_title: !input notification_title
   notification_message: !input notification_message
-  file_path: /www/snapshots/{{ states[camera].object_id }}/last_person.jpg
+  file_path: /media/snapshots/{{ states[camera].object_id }}/last_person.jpg
   archive_file_path: /media/snapshots/{{ states[camera].object_id }}/archive/person/{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg
   delay: !input delay
   delay_notification: !input delay_notification
