@@ -14,6 +14,12 @@ blueprint:
           - domain:
             - input_boolean
           multiple: false
+    goodnight_time:
+      name: What time of the day will goodnight run
+      description: The time of day when this will run each day. You can run manually instead it will only run once per day. 
+   #   default: 1
+      selector:
+        time:              
     lighttoturnon:
       name: Lights to turn on
       description: Turn on these lights (optional)
@@ -81,7 +87,7 @@ blueprint:
       selector:
         action: {}          
 trigger:
-- at: '22:15:00'
+- at: !input goodnight_time
   platform: time
   enabled: true
 
