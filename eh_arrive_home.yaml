@@ -25,7 +25,8 @@ blueprint:
           multiple: false
     doorlock:
       name: Door Lock
-      description: The door lock to unlock
+      description: The door lock to unlock (optional)
+      default: {}      
       selector:
         entity:
           filter:
