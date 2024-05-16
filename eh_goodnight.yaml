@@ -80,6 +80,10 @@ blueprint:
       default: []
       selector:
         action: {}          
+trigger:
+- at: '22:15:00'
+  platform: time
+  enabled: true
 
 condition:
 - condition: state
