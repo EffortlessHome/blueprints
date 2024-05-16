@@ -43,9 +43,9 @@ blueprint:
 
 trigger:
 - platform: state
-  entity_id: !input issomeonehome
-  from: 'off'
-  to: 'on'
+  entity_id: !input doorlock
+  from: 'locked'
+  to: 'unlocked'
 action:
 - service: switch.turn_off
   target:
