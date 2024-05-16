@@ -26,7 +26,8 @@ blueprint:
 
     lightgroup:
       name: Light Group
-      description: The Light Group To Turn Off. Recommend creating a group called "All Lights" and using that.
+      description: The Light Group To Turn Off (optional). Recommend creating a group called "All Lights" and using that.
+      default: {}
       selector:
         entity:
           filter:
@@ -52,7 +53,7 @@ trigger:
     seconds: 0
 condition: []
 action:
-- service: alarmo.disarm
+- service: alarmo.arm
   data:
     entity_id: !input securityalarm
     mode: away
