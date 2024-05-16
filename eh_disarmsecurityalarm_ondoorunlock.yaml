@@ -5,15 +5,6 @@ blueprint:
   author: EffortlessHome
   source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_disarmsecurityalarm_ondoorunlock.yaml
   input:
-    issomeonehome:
-      name: Is Someone Home Flag
-      description: This is the state indicating if someone is already home_value01
-      selector:
-        entity:
-          filter:
-          - domain:
-            - input_boolean
-          multiple: false
     securityalarm:
       name: Security Alarm
       description: The security alarm to disarm
@@ -25,7 +16,7 @@ blueprint:
           multiple: false
     doorlock:
       name: Door Lock
-      description: The door lock to unlock (optional)
+      description: The door lock 
       default: {}      
       selector:
         entity:
@@ -62,8 +53,6 @@ action:
 - service: alarmo.disarm
   data:
     entity_id: !input securityalarm
-- service: lock.unlock
-  target:
-    entity_id: !input doorlock
+
 - choose: []
   default: !input additional_actions
