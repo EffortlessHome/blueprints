@@ -1,48 +1,28 @@
 blueprint:
-  name: Good Morning
-  description: At morning, disarm alarm, enable person detection, stop sleeping setting
+  name: Smoke Alarm Triggered
+  description: Set the actions to take when a smoke alarm is triggered
   domain: automation
-  author: EffortlessHome
-  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_goodmorning.yaml
+  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_smoke_alarm.yaml
   input:
-    goodnightranforday:
-      name: goodnightranforday
-      description: goodnightranforday
+    smokealarm:
+      name: Smoke Alarm Sensor
+      description: The triggering smoke alarm sensor
       selector:
         entity:
           filter:
           - domain:
-            - input_boolean
-          multiple: false
-    issomeonehome:
-      name: issomeonehome
-      description: issomeonehome
-      selector:
-        entity:
-          filter:
-          - domain:
-            - input_boolean
-          multiple: false
-    securityalarm:
-      name: Security Alarm
-      description: The security alarm to disable
-      selector:
-        entity:
-          filter:
-          - domain:
-            - alarm_control_panel
-          multiple: false
+            - binary_sensor
+          multiple: true
+
+ 
 trigger:
-- at: input_datetime.paramgoodmorningtime
-  platform: time
-condition:
-- condition: state
-  entity_id: !input issomeonehome
-  state: 'on'
+- platform: state
+  entity_id:
+  - !input smokealarm
+  to: 'on'
 action:
-- service: alarmo.disarm
+- service: notify.notify
   data:
-    entity_id: !input securityalarm
-- service: input_boolean.turn_off
-  target:
-    entity_id: !input goodnightranforday
+    message: Smoke Alarm Activated. Check for fire immediately.
+
+
