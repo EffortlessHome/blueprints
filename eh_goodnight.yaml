@@ -16,7 +16,7 @@ blueprint:
           multiple: false
     lighttoturnon:
       name: Lights to turn on
-      description: Turn on these lights
+      description: Turn on these lights (optional)
       default: {}
       selector:
         entity:
@@ -26,14 +26,14 @@ blueprint:
           multiple: true
     garagedoor:
       name: The garage door
-      description: Close this garage door
+      description: Close this garage door (optional)
       default: {}      
       selector:
         entity:
           filter:
           - domain:
             - cover
-          multiple: false
+          multiple: true
     securityalarm:
       name: Security Alarm
       description: The security alarm to disable
@@ -55,7 +55,7 @@ blueprint:
           multiple: false
     plugtoturnoff:
       name: Plugs to turn off
-      description: Turn off these plugs
+      description: Turn off these plugs (optional)
       default: {}      
       selector:
         entity:
@@ -65,7 +65,7 @@ blueprint:
           multiple: true
     lighttoturnoff:
       name: Lights to turn off
-      description: Turn off these lights
+      description: Turn off these lights (optional)
       default: {}      
       selector:
         entity:
@@ -75,7 +75,7 @@ blueprint:
           multiple: true
     additional_actions:
       name: Additional Actions After
-      description: Add additional actions to the script. Will execute after everything
+      description: Add additional actions to the script. Will execute after everything. (optional)
         else.
       default: []
       selector:
