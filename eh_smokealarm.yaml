@@ -12,7 +12,7 @@ blueprint:
           filter:
           - domain:
             - binary_sensor
-          multiple: true
+          multiple: false
 
  
 trigger:
