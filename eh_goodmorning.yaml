@@ -14,6 +14,12 @@ blueprint:
           - domain:
             - input_boolean
           multiple: false
+    goodmorning_time:
+      name: What time of the day will goodmorning run
+      description: The time of day when this will run each day. 
+   #   default: 1
+      selector:
+        time:           
     issomeonehome:
       name: issomeonehome
       description: issomeonehome
@@ -40,8 +46,10 @@ blueprint:
       selector:
         action: {}          
 trigger:
-- at: input_datetime.paramgoodmorningtime
+- at: !input goodmorning_time
   platform: time
+  enabled: true
+
 condition:
 - condition: state
   entity_id: !input issomeonehome
