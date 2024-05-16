@@ -17,15 +17,17 @@ blueprint:
     lighttoturnon:
       name: Lights to turn on
       description: Turn on these lights
+      default: {}
       selector:
         entity:
           filter:
           - domain:
             - light
-          multiple: false
+          multiple: true
     garagedoor:
       name: The garage door
       description: Close this garage door
+      default: {}      
       selector:
         entity:
           filter:
@@ -43,7 +45,8 @@ blueprint:
           multiple: false
     doorlock:
       name: Door Lock
-      description: The door lock to unlock
+      description: The door lock to lock
+      default: {}      
       selector:
         entity:
           filter:
@@ -53,21 +56,23 @@ blueprint:
     plugtoturnoff:
       name: Plugs to turn off
       description: Turn off these plugs
+      default: {}      
       selector:
         entity:
           filter:
           - domain:
             - switch
-          multiple: false
+          multiple: true
     lighttoturnoff:
       name: Lights to turn off
       description: Turn off these lights
+      default: {}      
       selector:
         entity:
           filter:
           - domain:
             - light
-          multiple: false
+          multiple: true
     additional_actions:
       name: Additional Actions After
       description: Add additional actions to the script. Will execute after everything
@@ -75,10 +80,7 @@ blueprint:
       default: []
       selector:
         action: {}          
-trigger:
-- at: '22:15:00'
-  platform: time
-  enabled: false
+
 condition:
 - condition: state
   entity_id: !input goodnightranforday
@@ -88,8 +90,6 @@ action:
   target:
     entity_id: !input goodnightranforday
 - service: light.turn_on
-  data:
-    brightness_pct: 5
   target:
     entity_id:
     - !input lighttoturnon
@@ -108,13 +108,6 @@ action:
 - service: cover.close_cover
   target:
     entity_id: !input garagedoor
-- delay:
-    hours: 0
-    minutes: 6
-    seconds: 0
-    milliseconds: 0
-- service: light.turn_off
-  target:
-    entity_id: !input lighttoturnoff
+
 - choose: []
   default: !input additional_actions
