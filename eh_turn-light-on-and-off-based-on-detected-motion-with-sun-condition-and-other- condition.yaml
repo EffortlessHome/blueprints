@@ -2,8 +2,6 @@ blueprint:
   name: Motion-activated Light with sun condition and goodnight ran condition
   description: Turn on a light when motion is detected and sunset but not if sleeping.
   domain: automation
-  source_url:  https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_turn-light-on-and-off-based-on-detected-motion-with-sun-condition-and-other-condition.yaml
-  author: EffortlessHome
   input:
     motion_entity:
       name: Motion Sensor
@@ -13,7 +11,6 @@ blueprint:
           - binary_sensor
           device_class:
           - motion
-          - occupancy
           multiple: false
     light_target:
       name: Light
@@ -55,7 +52,16 @@ blueprint:
           unit_of_measurement: minutes
           step: 1.0
           mode: slider
-
+    goodnightranforday:
+      name: goodnightranforday
+      description: goodnightranforday
+      selector:
+        entity:
+          filter:
+          - domain:
+            - input_boolean
+          multiple: false
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_turn-light-on-and-off-based-on-detected-motion-with-sun-condition-and-other-%20condition.yaml
 mode: restart
 max_exceeded: silent
 trigger:
@@ -66,13 +72,15 @@ trigger:
 condition:
 - condition: or
   conditions:
+  - condition: state
+    entity_id: !input goodnightranforday
+    state: 'off'    
   - condition: sun
     after: sunset
     after_offset: !input sunset_offset
   - condition: sun
     before: sunrise
     before_offset: !input sunrise_offset
-
 action:
 - service: light.turn_on
   target: !input light_target
