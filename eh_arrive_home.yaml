@@ -3,7 +3,7 @@ blueprint:
   description: Set the actions to take when the first person to arrive home arrives
   domain: automation
   author: EffortlessHome
-  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_arrive_home.yaml
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_arrive_home.yaml
   input:
     issomeonehome:
       name: Is Someone Home Flag
@@ -25,22 +25,12 @@ blueprint:
           multiple: false
     doorlock:
       name: Door Lock
-      description: The door lock to unlock (optional)
-      default: {}      
+      description: The door lock to unlock
       selector:
         entity:
           filter:
           - domain:
             - lock
-          multiple: false
-    simulatepresenceswitch:
-      name: The Simulate Presence Switch
-      description: Turn off the simulate presence switch if it is on
-      selector:
-        entity:
-          filter:
-          - domain:
-            - switch
           multiple: false
     additional_actions:
       name: Additional Actions
@@ -49,16 +39,12 @@ blueprint:
       default: []
       selector:
         action: {}
-
 trigger:
 - platform: state
   entity_id: !input issomeonehome
   from: 'off'
   to: 'on'
 action:
-- service: switch.turn_off
-  target:
-    entity_id: !input simulatepresenceswitch
 - service: alarmo.disarm
   data:
     entity_id: !input securityalarm

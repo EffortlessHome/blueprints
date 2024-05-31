@@ -252,7 +252,9 @@ blueprint:
       description: Enter in the notification title of your message.
       default: Low Battery Notification
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     notify_message:
       name: Easy Notify - Message
       description: 'Choose one of the three preset messages from the dropdown menu.
@@ -283,7 +285,9 @@ blueprint:
         all your batteries are okay.
       default: YES! All batteries are okay :)
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     notify_action_buttons:
       name: Easy Notify - Action Buttons (Optional)
       description: Enhance your device notifications with an actionable To-Do list
@@ -323,7 +327,9 @@ blueprint:
         To-Do list. Please enter the title you would like for your To-Do task
       default: Batteries To Be Replaced
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     action_button_to_do:
       name: Easy Notify Action Buttons - Action Button
       description: Please specify the name for the action button to be displayed in
@@ -331,35 +337,45 @@ blueprint:
         chosen To-Do list.
       default: Add To To-Do List!
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     action_button_cancel:
       name: Easy Notify Action Buttons - Cancel Button
       description: Please specify the name for the cancel button to be displayed in
         the notification. This button allows you to cancel the task addition process.
       default: Cancel
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     action_button_confirmation_title:
       name: Easy Notify Action Buttons - Action & Cancel Button Confirmation Title
       description: Please enter in a title for the confirmation notification message
         when an action button or a cancel button is pressed.
       default: Low Battery Confirmation
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     action_button_confirmation_message:
       name: Easy Notify Action Buttons - Action Button Confirmation Message
       description: Please enter in the message for the confirmation notification message
         when the action button is pressed.
       default: Your low batteries have been added to your To-Do list
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     cancel_action_button_confirmation_message:
       name: Easy Notify Action Buttons - Cancel Button Confirmation Message
       description: Please enter in the message for the confirmation notification message
         when the cancel button is pressed.
       default: Cancelled - Nothing was added to your To-Do list
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     include_custom_actions:
       name: Use The Custom Action Options (Optional)
       description: You can add any custom actions you'd like to run when the automation
@@ -425,7 +441,7 @@ blueprint:
       default: []
       selector:
         condition: {}
-  source_url: https://gist.github.com/Blackshome/4010fb83bb8c19b5fa1425526c6ff0e2
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_low_battery_notifications_and_actions.yaml
 mode: restart
 max_exceeded: silent
 variables:

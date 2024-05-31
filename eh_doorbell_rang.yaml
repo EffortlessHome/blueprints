@@ -3,7 +3,7 @@ blueprint:
   description: Actions to be taken when the doorbell is activated
   domain: automation
   author: EffortlessHome
-  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_doorbell_rang.yaml
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_doorbell_rang.yaml
   input:
     sensor:
       name: Doorbell Rang Binary Sensor
@@ -25,7 +25,7 @@ blueprint:
       name: File Path
       description: The file path to store the most current snapshot. Defaults to **/media/snapshots/<camera_name>**
         - `/media/snapshots/{{ states[camera].object_id }}/last_doorbell.jpg`.
-      default: /media/snapshots/{{ states[camera].object_id }}/last_doorbell.jpg          
+      default: /media/snapshots/{{ states[camera].object_id }}/last_doorbell.jpg
     delay:
       name: Snapshot Delay
       description: Wait before creating camera snapshot.

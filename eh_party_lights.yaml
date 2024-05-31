@@ -17,7 +17,7 @@ blueprint:
     *There you click on ''Create helper and choose ''Toggle''.*
 
     '
-  source_url: https://gist.github.com/Twanne/fe33ab8466f9a4e94b3f8e21f745a377
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_party_lights.yaml
   domain: automation
   input:
     party_mode_trigger:

@@ -1,18 +1,40 @@
 blueprint:
-  name: Water Alarm Triggered
-  description: Set the actions to take when a water alarm is triggered
+  name: Humidity Alarm Triggered
+  description: Set the actions to take when a humidity alarm is triggered
   domain: automation
-#  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_water_alarm.yaml
+#  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_humidity_alarm.yaml
   input:
-    watersensor:
-      name: Water Leak Sensor
-      description: The triggering water leak sensor(s)
+    humidsensor:
+      name: Humidity Sensor
+      description: The triggering humidity sensor(s)
       selector:
         entity:
           filter:
           - domain:
-            - binary_sensor
+            - sensor
           multiple: true
+    low_trigger_humidity:
+      description: Humidity % to use to trigger a low temp alert
+      name: Low humidity trigger
+      default: 20
+      selector:
+        number:
+          min: 0.0
+          max: 99.0
+          unit_of_measurement: percentage
+          step: 1.0
+          mode: slider
+    high_trigger_humidity:
+      description: Humidity % to use to trigger a high temp alert
+      name: High humidity trigger
+      default: 80
+      selector:
+        number:
+          min: 0.0
+          max: 99.0
+          unit_of_measurement: percentage
+          step: 1.0
+          mode: slider
     additional_actions:
       name: Additional Actions
       description: Add additional actions to the script. Will execute after everything
@@ -39,9 +61,12 @@ blueprint:
       description: 'URI to naviagte to. default: /lovelace'
       default: '{{ clickActionURL }}'
 trigger:
-- platform: state
-  entity_id: !input watersensor
-  to: 'on'
+- platform: numeric_state
+  entity_id: !input humidsensor
+  above: !input high_trigger_humidity
+- platform: numeric_state
+  entity_id: !input humidsensor
+  below: !input low_trigger_humidity
 variables:
   clickActionURL: !input data_clickaction_url
   action_type: !input action_type
@@ -50,8 +75,8 @@ variables:
 action:
 - service: notify.notify
   data:
-    title: 'Water Sensor Activated'
-    message: 'Water Sensor Activated. Check for water immediately.'
+    title: 'Humidity Sensor Activated'
+    message: 'Humidity Sensor Activated'
     data:
       clickAction: !input data_clickaction_url
       ttl: 0

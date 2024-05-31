@@ -3,7 +3,7 @@ blueprint:
   description: At morning, disarm alarm, enable person detection, stop sleeping setting
   domain: automation
   author: EffortlessHome
-  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_goodmorning.yaml
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_goodmorning.yaml
   input:
     goodnightranforday:
       name: goodnightranforday
@@ -16,10 +16,9 @@ blueprint:
           multiple: false
     goodmorning_time:
       name: What time of the day will goodmorning run
-      description: The time of day when this will run each day. 
-   #   default: 1
+      description: The time of day when this will run each day.
       selector:
-        time:           
+        time: {}
     issomeonehome:
       name: issomeonehome
       description: issomeonehome
@@ -44,12 +43,11 @@ blueprint:
         else.
       default: []
       selector:
-        action: {}          
+        action: {}
 trigger:
 - at: !input goodmorning_time
   platform: time
   enabled: true
-
 condition:
 - condition: state
   entity_id: !input issomeonehome
@@ -62,4 +60,4 @@ action:
   target:
     entity_id: !input goodnightranforday
 - choose: []
-  default: !input additional_actions    
+  default: !input additional_actions

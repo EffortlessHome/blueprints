@@ -16,10 +16,10 @@ blueprint:
           multiple: false
     goodnight_time:
       name: What time of the day will goodnight run
-      description: The time of day when this will run each day. You can run manually instead it will only run once per day. 
-   #   default: 1
+      description: The time of day when this will run each day. You can run manually
+        instead it will only run once per day.
       selector:
-        time:              
+        time: {}
     lighttoturnon:
       name: Lights to turn on
       description: Turn on these lights (optional)
@@ -33,7 +33,7 @@ blueprint:
     garagedoor:
       name: The garage door
       description: Close this garage door (optional)
-      default: {}      
+      default: {}
       selector:
         entity:
           filter:
@@ -52,7 +52,7 @@ blueprint:
     doorlock:
       name: Door Lock
       description: The door lock to lock
-      default: {}      
+      default: {}
       selector:
         entity:
           filter:
@@ -62,7 +62,7 @@ blueprint:
     plugtoturnoff:
       name: Plugs to turn off
       description: Turn off these plugs (optional)
-      default: {}      
+      default: {}
       selector:
         entity:
           filter:
@@ -72,7 +72,7 @@ blueprint:
     lighttoturnoff:
       name: Lights to turn off
       description: Turn off these lights (optional)
-      default: {}      
+      default: {}
       selector:
         entity:
           filter:
@@ -81,16 +81,15 @@ blueprint:
           multiple: true
     additional_actions:
       name: Additional Actions After
-      description: Add additional actions to the script. Will execute after everything. (optional)
-        else.
+      description: Add additional actions to the script. Will execute after everything.
+        (optional) else.
       default: []
       selector:
-        action: {}          
+        action: {}
 trigger:
 - at: !input goodnight_time
   platform: time
   enabled: true
-
 condition:
 - condition: state
   entity_id: !input goodnightranforday
@@ -118,6 +117,5 @@ action:
 - service: cover.close_cover
   target:
     entity_id: !input garagedoor
-
 - choose: []
   default: !input additional_actions

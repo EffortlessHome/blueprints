@@ -1,13 +1,13 @@
 blueprint:
-  name: Camera - Send & Save Camera snapshot when if a person binary sensor's state turns
-    'off' to 'on', with Conditions
-  description: This automation blueprint creates a camera snapshot if a person is detected,
-    or if a binary sensor's state turns 'off' to 'on', and sends a notification to
-    your phone with the picture. Clicking the navigation will navigate to dashboard
+  name: Camera - Send & Save Camera snapshot when if a person binary sensor's state
+    turns 'off' to 'on', with Conditions
+  description: This automation blueprint creates a camera snapshot if a person is
+    detected, or if a binary sensor's state turns 'off' to 'on', and sends a notification
+    to your phone with the picture. Clicking the navigation will navigate to dashboard
     URL. Extends/customizes the work of https://gist.githubusercontent.com/TheRealFalseReality/eab315e84f2711783fb7454ac0b42187/raw/dab98ed49497432aa85f11d6727ba2c5c6397d3d/send_snapshot_conditional.yaml
   domain: automation
   author: EffortlessHome
-  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_camera_person.yaml
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_camera_person.yaml
   input:
     sensor:
       name: Person Sensor
@@ -29,7 +29,7 @@ blueprint:
       name: File Path
       description: The file path to store the most current snapshot. Defaults to **/media/snapshots/<camera_name>**
         - `/media/snapshots/{{ states[camera].object_id }}/last_person.jpg`.
-      default: /media/snapshots/{{ states[camera].object_id }}/last_person.jpg  
+      default: /media/snapshots/{{ states[camera].object_id }}/last_person.jpg
     delay:
       name: Snapshot Delay
       description: Wait before creating camera snapshot.
@@ -50,9 +50,8 @@ blueprint:
         condition: {}
     notify_device:
       name: Device to notify
-      description: 'Select a device to send notifications to. Device needs to run
-        the official Home Assistant app to receive notifications.'
-
+      description: Select a device to send notifications to. Device needs to run the
+        official Home Assistant app to receive notifications.
       selector:
         device:
           integration: mobile_app
@@ -99,7 +98,6 @@ blueprint:
       description: The URL to navigate to when clicking on the notification. (default
         = /lovelace)
       default: /lovelace
-
     save_archive_file:
       name: Save Archive Files?
       description: Choose to activate saving of old snapshots or not (default = on).
@@ -112,7 +110,6 @@ blueprint:
       default: []
       selector:
         condition: {}
-
     additional_actions_before:
       name: Additional Actions Before
       description: Add additional actions to the script. Will execute before everything
@@ -140,7 +137,6 @@ blueprint:
       name: Action URI (EXPERIMENTAL)
       description: 'URI to naviagte to. default: /lovelace'
       default: '{{ clickActionURL }}'
-
 trigger:
 - platform: state
   entity_id: !input sensor
@@ -157,11 +153,13 @@ variables:
   notification_title: !input notification_title
   notification_message: !input notification_message
   file_path: /media/snapshots/{{ states[camera].object_id }}/last_person.jpg
-  archive_file_path: /media/snapshots/{{ states[camera].object_id }}/archive/person/{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg
+  archive_file_path: /media/snapshots/{{ states[camera].object_id }}/archive/person/{{
+    now().strftime("%Y%m%d-%H%M%S") }}.jpg
   delay: !input delay
   delay_notification: !input delay_notification
   snapshot_create_file_path: !input file_path
-  snapshot_access_file_path: '{{ snapshot_create_file_path | replace(''/media'',''/media/local'') }}'
+  snapshot_access_file_path: '{{ snapshot_create_file_path | replace(''/media'',''/media/local'')
+    }}'
   condition: !input condition
   conditionSave: !input conditionSave
   clickActionURL: !input data_clickaction_url
@@ -169,13 +167,10 @@ variables:
   additional_actions: !input additional_actions
   additional_actions_before: !input additional_actions_before
   notify: !input notify
-
   notification_group: !input notification_group
-
   action_type: !input action_type
   action_title: !input action_title
   action_uri: !input action_uri
-
 action:
 - choose: []
   default: !input additional_actions_before
@@ -197,7 +192,6 @@ action:
           > delay_notification }}'
       then:
       - choose:
-
         - conditions: '{{ not notify_group_target }}'
           sequence:
           - device_id: !input notify_device
@@ -206,22 +200,14 @@ action:
             title: !input notification_title
             message: !input notification_message
             data:
-
               image: '{{ snapshot_access_file_path }}'
               clickAction: !input data_clickaction_url
-      #        video: !input notification_video
-
               ttl: 0
               priority: high
               attachment:
                 url: '{{ snapshot_access_file_path }}'
                 content_type: JPEG
               url: !input data_clickaction_url
-        #      push:
-        #        sound:
-        #          name: !input notification_sound
-        #          volume: !input notification_volume
-        #          critical: '{{ notification_critical }}'
               actions:
               - action: '{{ action_type }}'
                 title: '{{ action_title }}'
@@ -232,19 +218,14 @@ action:
             title: !input notification_title
             message: !input notification_message
             data:
-
               image: '{{ snapshot_access_file_path }}'
               clickAction: !input data_clickaction_url
-      #        video: !input notification_video
-      #        sticky: !input notification_sticky
-
               ttl: 0
               priority: high
               attachment:
                 url: '{{ snapshot_access_file_path }}'
                 content_type: JPEG
               url: !input data_clickaction_url
-
               actions:
               - action: '{{ action_type }}'
                 title: '{{ action_title }}'

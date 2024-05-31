@@ -3,11 +3,12 @@ blueprint:
   description: Actions to take when leaving home and no one left at home
   domain: automation
   author: EffortlessHome
-  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_leavehome.yaml
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_leavehome.yaml
   input:
     issomeonehome:
       name: issomeonehome
-      description: The issomeonehome flag to use to determine if anyone remains at home
+      description: The issomeonehome flag to use to determine if anyone remains at
+        home
       selector:
         entity:
           filter:
@@ -23,37 +24,35 @@ blueprint:
           - domain:
             - alarm_control_panel
           multiple: false
-
     lightgroup:
       name: Light Group
-      description: The Light Group To Turn Off (optional). Recommend creating a group called "All Lights" and using that.
-      default: {}
+      description: The Light Group To Turn Off. Recommend creating a group called
+        "All Lights" and using that.
       selector:
         entity:
           filter:
           - domain:
             - light
-          multiple: false        
-          
+          multiple: false
     additional_actions:
-      name: Additional Actions 
+      name: Additional Actions
       description: Add additional actions to complete. Will execute at the end.
       default: []
       selector:
-        action: {}          
+        action: {}
 trigger:
 - platform: state
   entity_id:
-    - input_boolean.issomeonehome
-  from: "on"
-  to: "off"
+  - input_boolean.issomeonehome
+  from: 'on'
+  to: 'off'
   for:
     hours: 0
     minutes: 5
     seconds: 0
 condition: []
 action:
-- service: alarmo.arm
+- service: alarmo.disarm
   data:
     entity_id: !input securityalarm
     mode: away
@@ -63,6 +62,5 @@ action:
 - service: switch.turn_on
   target:
     entity_id: switch.simulatepresencewhenaway
-
 - choose: []
   default: !input additional_actions

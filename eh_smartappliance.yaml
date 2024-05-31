@@ -137,14 +137,18 @@ blueprint:
         when the appliance starts.
       default: Washing Machine
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     start_message:
       name: Start Notify - Message
       description: Enter in the notification message that you would like to receive
         when the appliance starts.
       default: YES! Another load is ON :)
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     include_end_notify:
       name: Use The End Notify Options (Optional)
       description: Select 'Enable End Notify Options' if you would like to receive
@@ -175,14 +179,18 @@ blueprint:
         when the appliance has finished.
       default: Washing Machine
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     end_message:
       name: End Notify - Message
       description: Enter in the notification message that you would like to receive
         when the appliance has finished.
       default: Yippee the washing machine is finished!
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     include_power_tracking:
       name: Use The Power Tracking Option (optional)
       description: 'Choose whether to enable or disable power consumption tracking.
@@ -234,7 +242,9 @@ blueprint:
         reading.
       default: Consumption
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     end_message_cost:
       name: Power Tracking - End Notify - Message Cost
       description: Enter the notification message title for the cost estimate. This
@@ -242,7 +252,9 @@ blueprint:
         reading.
       default: Approx Cost $
       selector:
-        text: {}
+        text:
+          multiline: false
+          multiple: false
     cost_per_kwh:
       name: Power Tracking - Cost per kWh
       description: Please enter your number helper or a energy sensor to specify the
@@ -377,7 +389,7 @@ blueprint:
       default: []
       selector:
         condition: {}
-  source_url: https://gist.github.com/Blackshome/42586b567d243d432887cadf54e18906
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_smartappliance.yaml
 mode: single
 max_exceeded: silent
 variables:
