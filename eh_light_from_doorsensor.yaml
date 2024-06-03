@@ -4,11 +4,10 @@ blueprint:
     door, activating a smart switch or light.  The light will turn off at the end
     of a timer, or when you close the door.  Logic is also implemented to turn off
     the light in the event it''s manually turned on while the door is open or after
-    the automation has already run.
-
-    '
+    the automation has already run.'
   domain: automation
-#  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_light_from_doorsensor.yaml
+  author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_light_from_doorsensor.yaml
 
   input:
     door_sensor:

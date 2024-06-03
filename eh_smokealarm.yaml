@@ -6,23 +6,18 @@ blueprint:
   input:
     smokealarm:
       name: Smoke Alarm Sensor
-      description: The triggering smoke alarm sensor
+      description: The triggering smoke alarm sensor(s)
       selector:
         entity:
           filter:
           - domain:
             - binary_sensor
-          multiple: false
-
- 
+          multiple: true
 trigger:
 - platform: state
-  entity_id:
-  - !input smokealarm
+  entity_id: !input smokealarm
   to: 'on'
 action:
 - service: notify.notify
   data:
     message: Smoke Alarm Activated. Check for fire immediately.
-
-

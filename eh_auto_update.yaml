@@ -1,5 +1,5 @@
 blueprint:
-  name: Home Assistant Auto-update on a schedule base
+  name: Home Assistant Auto-update on a scheduled basis
   homeassistant:
     min_version: 2023.3.0
   description: '# Home Assistant Auto-update
@@ -14,10 +14,7 @@ blueprint:
     * Home Assistant may restart automatically as part of the update process.
 
     * **Use under your own risk!** Please see the discussions on Home Assistant community
-    around the risks involved on auto-updating the system.
-
-    For questions and suggestions, please use [this thread in Home Assistant Community
-    portal](https://community.home-assistant.io/t/scheduled-auto-update-for-home-assistant/459281).'
+    around the risks involved on auto-updating the system.'
   domain: automation
   author: EffortlessHome
   source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_auto_update.yaml

@@ -1,35 +1,8 @@
 blueprint:
   name: Appliance Notifications & Actions
-  description: "# \U0001F4F3 Appliance Notifications & Actions\n**Version: 1.9**\n\n\U0001F914
-    Watts your appliance up to, you're always in the know from start to finish!\U0001F6CE️\U0001F50C\U0001F4B8\n\n**If
-    you like my blueprints, and would like to show your support or just say thank
-    you?** [Click Here](https://www.paypal.com/donate/?hosted_button_id=WAZS3QSDTPGA8)
-    \U0001F642\n\n<details> <summary><b>The Automation Process:</b> - Click here to
-    expand</summary>\n\n  - **Appliance Trigger:**\n      - Enter the power sensor
-    entity that measures the live current draw of the appliance. Common devices with
-    these sensors include smart plugs, energy meters, etc.\n      - The automation
-    is triggered when the appliance's current draw exceeds a set wattage.\n      -
-    The automation ends when the appliance's current draw falls below a set value.\n\n
-    \ - **Notification Options:**\n      - Send notification messages to one or multiple
-    devices when the appliance starts and/or finishes.\n      - Your end message can
-    include estimates of total power consumption and cost.\n      - Notifications
-    are compatible with both Apple iOS and Android devices, ensuring universal accessibility.\n\n
-    \ - **Power Tracking:**\n      - Utilize power tracking for estimating total power
-    consumption and cost. \n      \n      ⚠️ **Disclaimer** - These values are estimates
-    and should only be used as a guide. Please avoid relying solely on these estimates
-    for accuracy and use them at your own risk. We cannot be held responsible for
-    any inaccuracies or resulting losses, damages, inconvenience, or anything else
-    that may occur.\n\n  - **Custom Actions:**\n      - Tailor custom actions to suit
-    your preferences and needs, enhancing the automation's functionality.\n      -
-    Configure actions such as triggering announcements on platforms like The Voice
-    (HA), Google, Alexa, etc., to keep you informed about appliance events.\n\n  -
-    **Time-Based Automation:**\n      - Specify precise start and end times along
-    with weekday selections to define when the automation can run.\n\n  - **Custom
-    Conditions:**\n      - Enter any custom conditions to further customize the automation
-    process.\n</details>\n\nNeed help? See our FAQ: [Click Here](https://community.home-assistant.io/t/650166/2)\nLet
-    us know what you think of this blueprint and for community support including updates:
-    [Click Here](https://community.home-assistant.io/t/650166)\n\nRequired = *\n"
+  description: "Appliance Notifications & Actions"
   domain: automation
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_smartappliance.yaml
   input:
     power_sensor:
       name: Power Sensor *
@@ -389,7 +362,6 @@ blueprint:
       default: []
       selector:
         condition: {}
-  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_smartappliance.yaml
 mode: single
 max_exceeded: silent
 variables:

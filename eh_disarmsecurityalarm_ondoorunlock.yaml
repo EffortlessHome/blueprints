@@ -16,22 +16,13 @@ blueprint:
           multiple: false
     doorlock:
       name: Door Lock
-      description: The door lock 
-      default: {}      
+      description: The door lock
+      default: {}
       selector:
         entity:
           filter:
           - domain:
             - lock
-          multiple: false
-    simulatepresenceswitch:
-      name: The Simulate Presence Switch
-      description: Turn off the simulate presence switch if it is on
-      selector:
-        entity:
-          filter:
-          - domain:
-            - switch
           multiple: false
     additional_actions:
       name: Additional Actions
@@ -47,9 +38,6 @@ trigger:
   from: 'locked'
   to: 'unlocked'
 action:
-- service: switch.turn_off
-  target:
-    entity_id: !input simulatepresenceswitch
 - service: alarmo.disarm
   data:
     entity_id: !input securityalarm

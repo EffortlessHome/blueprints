@@ -5,15 +5,6 @@ blueprint:
   author: EffortlessHome
   source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_arrive_home.yaml
   input:
-    issomeonehome:
-      name: Is Someone Home Flag
-      description: This is the state indicating if someone is already home_value01
-      selector:
-        entity:
-          filter:
-          - domain:
-            - input_boolean
-          multiple: false
     securityalarm:
       name: Security Alarm
       description: The security alarm to disable
@@ -41,7 +32,7 @@ blueprint:
         action: {}
 trigger:
 - platform: state
-  entity_id: !input issomeonehome
+  entity_id: input_boolean.issomeonehome
   from: 'off'
   to: 'on'
 action:

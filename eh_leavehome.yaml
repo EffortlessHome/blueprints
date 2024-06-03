@@ -1,39 +1,81 @@
 blueprint:
   name: Leave Home
-  description: Actions to take when leaving home and no one left at home
+  description: Actions to take a predetermined amount of time after no one is at the home
   domain: automation
   author: EffortlessHome
   source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_leavehome.yaml
   input:
-    issomeonehome:
-      name: issomeonehome
-      description: The issomeonehome flag to use to determine if anyone remains at
-        home
+    leave_trigger_delay:
+      name: Delay After Determination of No One At Home To Trigger Actions
+      description: Delay After Determination of No One At Home To Trigger Actions
+      default: 0
+      selector:
+        number:
+          min: 0.0
+          max: 300.0
+          unit_of_measurement: seconds
+          mode: slider
+          step: 1.0
+    garagedoor:
+      name: The garage door
+      description: Close this garage door (optional)
+      default: []
       selector:
         entity:
           filter:
           - domain:
-            - input_boolean
-          multiple: false
+            - cover
+          multiple: true
     securityalarm:
       name: Security Alarm
-      description: The security alarm to disable
+      description: The security alarm to arm in away mode
       selector:
         entity:
           filter:
           - domain:
             - alarm_control_panel
           multiple: false
-    lightgroup:
-      name: Light Group
-      description: The Light Group To Turn Off. Recommend creating a group called
-        "All Lights" and using that.
+    doorlock:
+      name: Door Lock
+      description: The door lock to lock (optional)
+      default: []
+      selector:
+        entity:
+          filter:
+          - domain:
+            - lock
+          multiple: false
+    plugtoturnoff:
+      name: Plugs to turn off
+      description: Turn off these plugs (optional)
+      default: []
+      selector:
+        entity:
+          filter:
+          - domain:
+            - switch
+          multiple: true
+    lighttoturnoff:
+      name: Lights to turn off
+      description: Turn off these lights (optional)
+      default: []
       selector:
         entity:
           filter:
           - domain:
             - light
-          multiple: false
+          multiple: true
+    window_sensor:
+      name: Window/Door Sensor
+      description: Select any door or window sensor(s) that you want to check is open.
+      selector:
+        entity:
+          domain:
+          - binary_sensor
+          device_class:
+          - window
+          - door
+          multiple: true
     additional_actions:
       name: Additional Actions
       description: Add additional actions to complete. Will execute at the end.
@@ -42,25 +84,43 @@ blueprint:
         action: {}
 trigger:
 - platform: state
-  entity_id:
-  - input_boolean.issomeonehome
+  entity_id: input_boolean.issomeonehome
   from: 'on'
   to: 'off'
   for:
     hours: 0
-    minutes: 5
-    seconds: 0
+    minutes: 0
+    seconds: !input leave_trigger_delay
 condition: []
 action:
-- service: alarmo.disarm
-  data:
-    entity_id: !input securityalarm
-    mode: away
 - service: light.turn_off
   target:
-    entity_id: !input lightgroup
-- service: switch.turn_on
+    entity_id: !input lighttoturnoff
+- service: alarmo.arm
+  data:
+    mode: away
+    skip_delay: false
+    force: false
+    entity_id: !input securityalarm
+- service: switch.turn_off
   target:
-    entity_id: switch.simulatepresencewhenaway
+    entity_id: !input plugtoturnoff
+- service: lock.lock
+  target:
+    entity_id: !input doorlock
+- service: cover.close_cover
+  target:
+    entity_id: !input garagedoor
+- if:
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: !input window_sensor
+          state: "on"
+  then:
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: Door or Window Left Open
 - choose: []
   default: !input additional_actions

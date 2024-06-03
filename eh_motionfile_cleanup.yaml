@@ -1,48 +1,19 @@
 blueprint:
-  name: Good Morning
-  description: At morning, disarm alarm, enable person detection, stop sleeping setting
+  name: Motion and Person Image File Cleanup
+  description: Daily cleanup of 30+ day old motion and person detection image files
   domain: automation
   author: EffortlessHome
-  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_goodmorning.yaml
+  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_motionfile_cleanup.yaml
   input:
-    goodnightranforday:
-      name: goodnightranforday
-      description: goodnightranforday
-      selector:
-        entity:
-          filter:
-          - domain:
-            - input_boolean
-          multiple: false
-    issomeonehome:
-      name: issomeonehome
-      description: issomeonehome
-      selector:
-        entity:
-          filter:
-          - domain:
-            - input_boolean
-          multiple: false
-    securityalarm:
-      name: Security Alarm
-      description: The security alarm to disable
-      selector:
-        entity:
-          filter:
-          - domain:
-            - alarm_control_panel
-          multiple: false
+      execution_time:
+        name: What time of the day will this cleanup run
+        description: The time of day when this will run each day.
+        selector:
+          time: {}
 trigger:
-- at: input_datetime.paramgoodmorningtime
+- at: !input execution_time
   platform: time
-condition:
-- condition: state
-  entity_id: !input issomeonehome
-  state: 'on'
+
 action:
-- service: alarmo.disarm
-  data:
-    entity_id: !input securityalarm
-- service: input_boolean.turn_off
-  target:
-    entity_id: !input goodnightranforday
+  - service: shell_command.move_motion_files
+    data: {}

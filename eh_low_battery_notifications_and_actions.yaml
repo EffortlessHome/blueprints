@@ -1,37 +1,9 @@
 blueprint:
   name: Low Battery Notifications & Actions
-  description: "# \U0001FAAB Low Battery Notifications & Actions\n**Version: 2.1**\n\n\U0001F680
-    Stay Charged, Stay Smart! Let's automate and take charge of your battery maintenance!\U0001F50B⚡\n\n**If
-    you like my blueprints, and would like to show your support or just say thank
-    you?** [Click Here](https://www.paypal.com/donate/?hosted_button_id=WAZS3QSDTPGA8)
-    \U0001F642\n\n<details> <summary><b>The Automation Process:</b> - Click here to
-    expand</summary>\n\n  - **Trigger Options:**\n    - **Button Helper:** Press a
-    button in the user interface (UI) to check battery levels.\n    - **Time & Day:**
-    Automatically periodically checks battery levels on any given time and day.\n\n
-    \ - **Battery Sensors:**\n    - Automatically detects all battery sensors used
-    in Home Assistant.\n    - Set a battery low warning percentage to identify all
-    batteries below this level.\n    - Detects 'Low' and unavailable batteries.\n
-    \   - Excludes specific battery sensors from notifications.\n    - Create a custom
-    group of battery sensors with its own independent low battery warning percentage.\n\n
-    \ - **Notification Options:**\n    - Opt to send messages to one or multiple devices.\n
-    \   - Opt to display your notifications directly within the Home Assistant user
-    interface (UI).\n    - Choose which battery sensors to use, and then select their
-    states from one of three preset messages:\n        - Low battery sensors + Battery
-    level % + Unavailable sensors.\n        - Low battery sensors + Battery level
-    %.\n        - Unavailable sensors.\n    - Opt to receive a confirmation message
-    if all batteries are okay.\n    - Opt to use action buttons in your device notification
-    that allows you to add your low batteries to a To-Do list.\n    - Compatible with
-    Apple iOS and Android devices.\n\n  - **Custom Actions:**\n    - Customize actions
-    to suit your preferences and needs, enhancing the automations functionality.\n
-    \   - Utilize 10 custom predetermined battery sensors within the blueprint for
-    more tailored and precise actions.\n    - Configure custom actions to include
-    features like customizing notifications or playing announcements on platforms
-    like The Voice (HA), Google, Alexa, TTS, etc.\n\n  - **Custom Conditions:**\n
-    \   - Enter any custom conditions to further customize the automation process.\n</details>\n\nNeed
-    help? See our FAQ: [Click Here](https://community.home-assistant.io/t/653754/2?u=blacky)\nLet
-    us know what you think of this blueprint and for community support including updates:
-    [Click Here](https://community.home-assistant.io/t/653754)\n"
+  description: "Low Battery Notifications & Actions"
   domain: automation
+  author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_low_battery_notifications_and_actions.yaml
   input:
     include_button:
       name: Use The Button Helper Trigger (Optional)
@@ -441,7 +413,6 @@ blueprint:
       default: []
       selector:
         condition: {}
-  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_low_battery_notifications_and_actions.yaml
 mode: restart
 max_exceeded: silent
 variables:

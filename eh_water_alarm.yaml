@@ -2,7 +2,7 @@ blueprint:
   name: Water Alarm Triggered
   description: Set the actions to take when a water alarm is triggered
   domain: automation
-#  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_water_alarm.yaml
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_water_alarm.yaml
   input:
     watersensor:
       name: Water Leak Sensor

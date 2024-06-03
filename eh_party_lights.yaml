@@ -1,24 +1,9 @@
 blueprint:
   name: Party Lights
-  author: AntonH
-  description: '**Version 1.3**
-
-
-    Lights go to party mode (color loops or fade-in-and-out)
-
-
-    ⚠️ **NOTE:** ⚠️
-
-    *This automation is triggered by the status of a switch or an input_boolean entity.*
-
-    *You can create this input_boolean by going to Settings > Devices & services >
-    Helpers*
-
-    *There you click on ''Create helper and choose ''Toggle''.*
-
-    '
+  description: 'Party Lighting'
   source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_party_lights.yaml
   domain: automation
+  author: EffortlessHome
   input:
     party_mode_trigger:
       name: Party mode trigger
