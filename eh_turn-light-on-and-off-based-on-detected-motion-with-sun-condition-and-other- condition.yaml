@@ -53,15 +53,6 @@ blueprint:
           unit_of_measurement: minutes
           step: 1.0
           mode: slider
-    goodnightranforday:
-      name: goodnightranforday
-      description: goodnightranforday
-      selector:
-        entity:
-          filter:
-          - domain:
-            - input_boolean
-          multiple: false
 mode: restart
 max_exceeded: silent
 trigger:
@@ -70,11 +61,8 @@ trigger:
   from: 'off'
   to: 'on'
 condition:
-- condition: and
+- condition: or
   conditions:
-  - condition: state
-    entity_id: !input goodnightranforday
-    state: 'off'
   - condition: sun
     after: sunset
     after_offset: !input sunset_offset
@@ -82,6 +70,9 @@ condition:
     before: sunrise
     before_offset: !input sunrise_offset
 action:
+- condition: state
+  entity_id: input_boolean.goodnightranforday
+  state: 'off'
 - service: light.turn_on
   target: !input light_target
 - wait_for_trigger:
