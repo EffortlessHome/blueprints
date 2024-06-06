@@ -2,7 +2,7 @@ blueprint:
   name: Temperature Alarm Triggered
   description: Set the actions to take when a temperature alarm is triggered
   domain: automation
-  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_water_alarm.yaml
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_temperature_alarm.yaml
   input:
     tempsensor:
       name: Temperature Sensor
@@ -16,11 +16,11 @@ blueprint:
     low_trigger_temperature:
       description: Temperature to use to trigger a low temp alert
       name: Low temperature trigger
-      default: 50
+      default: 40
       selector:
         number:
           min: 0.0
-          max: 99.0
+          max: 60.0
           unit_of_measurement: degrees
           step: 1.0
           mode: slider
@@ -75,8 +75,8 @@ variables:
 action:
 - service: notify.notify
   data:
-    title: 'Temperature Sensor Activated'
-    message: 'Temperature Sensor Activated'
+    title: Temperature Sensor Activated
+    message: Temperature Sensor Activated
     data:
       clickAction: !input data_clickaction_url
       ttl: 0
