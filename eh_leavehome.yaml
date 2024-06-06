@@ -1,6 +1,7 @@
 blueprint:
   name: Leave Home
-  description: Actions to take a predetermined amount of time after no one is at the home
+  description: Actions to take a predetermined amount of time after no one is at the
+    home
   domain: automation
   author: EffortlessHome
   source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_leavehome.yaml
@@ -91,7 +92,10 @@ trigger:
     hours: 0
     minutes: 0
     seconds: !input leave_trigger_delay
-condition: []
+condition:
+- condition: state
+  entity_id: input_boolean.isrenteroccupied
+  state: 'off'
 action:
 - service: light.turn_off
   target:
@@ -112,15 +116,15 @@ action:
   target:
     entity_id: !input garagedoor
 - if:
-    - condition: or
-      conditions:
-        - condition: state
-          entity_id: !input window_sensor
-          state: "on"
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: !input window_sensor
+      state: 'on'
   then:
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: Door or Window Left Open
+  - service: notify.notify
+    metadata: {}
+    data:
+      message: Door or Window Left Open
 - choose: []
   default: !input additional_actions
