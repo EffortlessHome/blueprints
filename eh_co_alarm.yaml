@@ -1,12 +1,12 @@
 blueprint:
-  name: Smoke Alarm Triggered
-  description: Set the actions to take when a smoke alarm is triggered
+  name: Carbon Monoxide Alarm Triggered
+  description: Set the actions to take when a carbon monoxide alarm is triggered
   domain: automation
-  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_smokealarm.yaml
+  source_url: https://github.com/EffortlessHome/blueprints/blob/main/eh_co_alarm.yaml
   input:
-    smokealarm:
-      name: Smoke Alarm Sensor
-      description: The triggering smoke alarm sensor(s)
+    carbonmonoxidealarm:
+      name: Carbon Monoxide Alarm Sensor
+      description: The triggering carbon monoxide alarm sensor(s)
       selector:
         entity:
           filter:
@@ -22,11 +22,11 @@ blueprint:
         action: {}
 trigger:
 - platform: state
-  entity_id: !input smokealarm
+  entity_id: !input carbonmonoxidealarmalarm
   to: 'on'
 action:
 - service: notify.notify
   data:
-    message: Smoke Alarm Activated. Check for fire immediately.
+    message: Carbon Monoxide Alarm Activated. Get to Safety and Check for CO immediately.
 - choose: []
   default: !input additional_actions
