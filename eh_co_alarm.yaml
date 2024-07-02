@@ -22,7 +22,7 @@ blueprint:
         action: {}
 trigger:
 - platform: state
-  entity_id: !input carbonmonoxidealarmalarm
+  entity_id: !input carbonmonoxidealarm
   to: 'on'
 action:
 - service: notify.notify
