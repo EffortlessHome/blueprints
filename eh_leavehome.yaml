@@ -17,16 +17,6 @@ blueprint:
           unit_of_measurement: seconds
           mode: slider
           step: 1.0
-    garagedoor:
-      name: The garage door
-      description: Close this garage door (optional)
-      default: []
-      selector:
-        entity:
-          filter:
-          - domain:
-            - cover
-          multiple: true
     securityalarm:
       name: Security Alarm
       description: The security alarm to arm in away mode
@@ -112,9 +102,7 @@ action:
 - service: lock.lock
   target:
     entity_id: !input doorlock
-- service: cover.close_cover
-  target:
-    entity_id: !input garagedoor
+
 - if:
   - condition: or
     conditions:

@@ -21,16 +21,7 @@ blueprint:
           - domain:
             - light
           multiple: true
-    garagedoor:
-      name: The garage door
-      description: Close this garage door (optional)
-      default: []
-      selector:
-        entity:
-          filter:
-          - domain:
-            - cover
-          multiple: true
+
     securityalarm:
       name: Security Alarm
       description: The security alarm to arm in night/home mode
@@ -98,16 +89,16 @@ condition:
   state: 'off'
 action:
 - if:
-    - condition: or
-      conditions:
-        - condition: state
-          entity_id: !input window_sensor
-          state: "on"
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: !input window_sensor
+      state: 'on'
   then:
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: Door or Window Left Open
+  - service: notify.notify
+    metadata: {}
+    data:
+      message: Door or Window Left Open
 - service: input_boolean.turn_on
   target:
     entity_id: input_boolean.goodnightranforday
@@ -126,8 +117,6 @@ action:
 - service: lock.lock
   target:
     entity_id: !input doorlock
-- service: cover.close_cover
-  target:
-    entity_id: !input garagedoor
+
 - choose: []
   default: !input additional_actions
