@@ -1,0 +1,111 @@
+blueprint:
+  name: Smart Appliance Conversion Start Automation
+  description: Set the actions to take to convert a dumb appliance to smart
+  domain: automation
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/main/eh_smartappliance_start.yaml
+  input:
+    powermonitoringsensor:
+      name: Power Monitoring Sensor
+      description: The power monitoring sensor attached to the appliance. Typically a smart plug.
+      selector:
+        entity:
+          filter:
+          - domain:
+            - sensor
+          multiple: false
+    trigger_poweruseage:
+      description: The amount of power usage to trigger the running state
+      name: Trigger Power Usage
+      default: 40
+      selector:
+        number:
+          min: 1.0
+          max: 99.0
+          unit_of_measurement: watts
+          step: 1.0
+          mode: slider
+    powerusagelevel_time:
+      name: Power Usage Time At Level
+      description: How long in seconds should the power usage be at that amount to confirm appliance started?
+      default: 300
+      selector:
+        number:
+          min: 0.0
+          max: 900.0
+          unit_of_measurement: seconds
+          mode: slider
+          step: 1.0
+    input_boolean:
+      name: Dedicated input_boolean
+      description: Create and set here a input_boolean to handle history and state of the appliance
+      selector:
+        entity:
+          domain: input_boolean
+          multiple: false
+
+    notification_message:
+      name: Notification message 
+      description: "Default: Appliance Started"
+      default: "Appliance Started"
+
+    additional_actions:
+      name: Additional Actions
+      description: Add additional actions to the script. Will execute after everything
+        else.
+      default: []
+      selector:
+        action: {}
+    data_clickaction_url:
+      name: URL to Navigate (Optional)
+      description: The URL to navigate to when clicking on the notification. (default
+        = /lovelace)
+      default: /lovelace
+    action_type:
+      name: Action Type (EXPERIMENTAL)
+      description: 'Set action type, see [Actionable Notifications](https://companion.home-assistant.io/docs/notifications/actionable-notifications/).
+        default: URI'
+      default: URI
+    action_title:
+      name: Action Title (EXPERIMENTAL)
+      description: Title of action that will appear with the notification
+      default: Open Dashboard
+    action_uri:
+      name: Action URI (EXPERIMENTAL)
+      description: 'URI to naviagte to. default: /lovelace'
+      default: '{{ clickActionURL }}'
+trigger:
+- platform: numeric_state
+  entity_id: !input powermonitoringsensor
+  above: !input trigger_poweruseage
+  for:
+    hours: 0
+    minutes: 0
+    seconds: !input powerusagelevel_time
+condition:
+- condition: state
+  entity_id: !input input_boolean
+  state: 'off'
+variables:
+  clickActionURL: !input data_clickaction_url
+  action_type: !input action_type
+  action_title: !input action_title
+  action_uri: !input action_uri
+action:
+- service: notify.notify
+  data:
+    title: !input notification_message
+    message: !input notification_message
+    data:
+      clickAction: !input data_clickaction_url
+      ttl: 0
+      priority: high
+      url: !input data_clickaction_url
+      actions:
+      - action: '{{ action_type }}'
+        title: '{{ action_title }}'
+        uri: '{{ action_uri }}'
+- service: input_boolean.turn_on
+  target:
+    entity_id: !input input_boolean
+- choose: []
+  default: !input additional_actions
