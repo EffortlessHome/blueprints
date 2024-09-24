@@ -5,6 +5,7 @@ blueprint:
     to keep optimized performance.
   domain: automation
   author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_homeassistantdb_cleanup.yaml
   input:
     retention_days:
       name: Days Of History To Retain

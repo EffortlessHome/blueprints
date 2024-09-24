@@ -4,6 +4,7 @@ blueprint:
     alarm triggers). Use this automation only if this functionality is desired.
   domain: automation
   author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_disarmsecurityalarm_ondoorunlock.yaml
   input:
     securityalarm:
       name: Security Alarm

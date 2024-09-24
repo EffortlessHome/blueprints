@@ -2,6 +2,8 @@ blueprint:
   name: Calendar Notifications & Actions
   description: Calendar Notifications & Actions
   domain: automation
+  author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_calendar-notifications-and-actions.yaml
   input:
     calendar:
       name: Calendar *

@@ -2,6 +2,8 @@ blueprint:
   name: Humidity Alarm Triggered
   description: Set the actions to take when a humidity alarm is triggered
   domain: automation
+  author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_humidity_alarm.yaml
   input:
     humidsensor:
       name: Humidity Sensor

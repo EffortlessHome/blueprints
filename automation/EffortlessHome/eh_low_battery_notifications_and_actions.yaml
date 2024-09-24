@@ -3,6 +3,7 @@ blueprint:
   description: Low Battery Notifications & Actions
   domain: automation
   author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_low_battery_notifications_and_actions.yaml
   input:
     include_button:
       name: Use The Button Helper Trigger (Optional)

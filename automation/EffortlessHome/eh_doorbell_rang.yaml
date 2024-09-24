@@ -3,6 +3,7 @@ blueprint:
   description: Actions to be taken when the doorbell is activated
   domain: automation
   author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_doorbell_rang.yaml
   input:
     sensor:
       name: Doorbell Rang Binary Sensor

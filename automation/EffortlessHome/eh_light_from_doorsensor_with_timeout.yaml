@@ -1,13 +1,13 @@
 blueprint:
-  name: Turn On Light from Door Sensor
+  name: Turn On Light from Door Sensor with timeout
   description: Automatically actitvate a light with a door sensor attached to the
     door, activating a smart switch or light.  The light will turn off at the end
-    of a timer, or when you close the door.  Logic is also implemented to turn off
+    of a timer.  Logic is also implemented to turn off
     the light in the event it's manually turned on while the door is open or after
     the automation has already run.
   domain: automation
   author: EffortlessHome
-  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_light_from_doorsensor.yaml
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_light_from_doorsensor_with_timeout.yaml
   input:
     door_sensor:
       name: Door Sensor
@@ -26,7 +26,7 @@ blueprint:
             - switch
     light_timeout:
       name: Light Timeout
-      description: How long to let the light run with the door open.
+      description: How long to let the light stay on after opening the door.
       default: 300
       selector:
         number:
@@ -65,11 +65,7 @@ trigger:
   from: 'off'
   to: 'on'
   id: door-open
-- platform: state
-  entity_id: !input door_sensor
-  from: 'on'
-  to: 'off'
-  id: door-closed
+
 condition:
 - condition: or
   conditions:
@@ -87,11 +83,10 @@ action:
   - service: homeassistant.turn_on
     data: {}
     target: !input light_switch
-  - wait_for_trigger:
-    - platform: state
-      entity_id: !input door_sensor
-      from: 'on'
-      to: 'off'
-    timeout: !input light_timeout
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: !input light_timeout
+      milliseconds: 0
 - service: homeassistant.turn_off
   target: !input light_switch

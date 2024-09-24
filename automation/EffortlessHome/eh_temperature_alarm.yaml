@@ -2,6 +2,8 @@ blueprint:
   name: Temperature Alarm Triggered
   description: Set the actions to take when a temperature alarm is triggered
   domain: automation
+  author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_temperature_alarm.yaml
   input:
     tempsensor:
       name: Temperature Sensor

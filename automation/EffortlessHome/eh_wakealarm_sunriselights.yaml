@@ -3,6 +3,8 @@ blueprint:
   description: A wake-up light alarm with a brightness and color temperature sunrise
     effect.
   domain: automation
+  author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_wakealarm_sunsriselights.yaml
   input:
     light_entity:
       name: Wake-up light entity

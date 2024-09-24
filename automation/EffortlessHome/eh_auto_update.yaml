@@ -17,6 +17,7 @@ blueprint:
     around the risks involved on auto-updating the system.'
   domain: automation
   author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_auto_update.yaml
   input:
     verbose_logging_bool:
       name: Log addon progress with verbosity to the logbook?

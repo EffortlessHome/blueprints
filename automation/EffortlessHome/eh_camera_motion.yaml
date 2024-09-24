@@ -7,6 +7,7 @@ blueprint:
     URL. Extends/customizes the work of https://gist.githubusercontent.com/TheRealFalseReality/eab315e84f2711783fb7454ac0b42187/raw/dab98ed49497432aa85f11d6727ba2c5c6397d3d/send_snapshot_conditional.yaml
   domain: automation
   author: EffortlessHome
+  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_camera_motion.yaml
   input:
     sensor:
       name: Motion or Binary Sensor
