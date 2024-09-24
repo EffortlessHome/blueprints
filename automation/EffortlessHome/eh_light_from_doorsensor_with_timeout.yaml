@@ -7,7 +7,7 @@ blueprint:
     the automation has already run.
   domain: automation
   author: EffortlessHome
-  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_light_from_doorsensor_with_timeout.yaml
+  source_url: https://github.com/EffortlessHome/blueprints/raw/refs/heads/main/automation/EffortlessHome/eh_light_from_doorsensor_with_timeout.yaml
   input:
     door_sensor:
       name: Door Sensor

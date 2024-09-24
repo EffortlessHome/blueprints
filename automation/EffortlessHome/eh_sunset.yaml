@@ -4,7 +4,7 @@ blueprint:
     someone is home
   domain: automation
   author: EffortlessHome
-  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_sunset.yaml
+  source_url: https://github.com/EffortlessHome/blueprints/raw/refs/heads/main/automation/EffortlessHome/eh_sunset.yaml
   input:
     lighttoturnon:
       name: Lights to turn on

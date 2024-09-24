@@ -3,7 +3,7 @@ blueprint:
   description: Turn on a light when motion is detected and sunset but not if sleeping.
   domain: automation
   author: EffortlessHome
-  source_url: https://raw.githubusercontent.com/EffortlessHome/blueprints/d3d466d6f89cbb22c3f567aa024dce408ea7cf10/automation/EffortlessHome/eh_turn-light-on-and-off-based-on-detected-motion-with-sun-condition-and-other-condition.yaml
+  source_url: https://github.com/EffortlessHome/blueprints/raw/refs/heads/main/automation/EffortlessHome/eh_turn-light-on-and-off-based-on-detected-motion-with-sun-condition-and-other-condition.yaml
   input:
     motion_entity:
       name: Motion Sensor
