@@ -1,0 +1,47 @@
+blueprint:
+  name: Good Morning
+  description: At morning, disarm alarm, enable person detection, stop sleeping setting
+  domain: automation
+  author: EffortlessHome
+  input:
+
+    goodmorning_time:
+      name: What time of the day will goodmorning run
+      description: The time of day when this will run each day.
+      selector:
+        time: {}
+
+    securityalarm:
+      name: Security Alarm
+      description: The security alarm to disable
+      selector:
+        entity:
+          filter:
+          - domain:
+            - alarm_control_panel
+          multiple: false
+    additional_actions:
+      name: Additional Actions After
+      description: Add additional actions to the script. Will execute after everything
+        else.
+      default: []
+      selector:
+        action: {}
+trigger:
+- at: !input goodmorning_time
+  platform: time
+  enabled: true
+condition:
+- condition: state
+  entity_id: binary_sensor.someone_home_sensor
+  state: 'on'
+action:
+- service: effortlesshome.disarm
+  data:
+    entity_id: !input securityalarm
+- action: effortlesshome.changegoodnightranfordaystateservice
+  metadata: {}
+  data:
+    newstate: "off"
+- choose: []
+  default: !input additional_actions

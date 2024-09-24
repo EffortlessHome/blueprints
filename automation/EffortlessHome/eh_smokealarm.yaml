@@ -1,0 +1,35 @@
+blueprint:
+  name: Smoke Alarm Triggered
+  description: Set the actions to take when a smoke alarm is triggered
+  domain: automation
+  input:
+    smokealarm:
+      name: Smoke Alarm Sensor
+      description: The triggering smoke alarm sensor(s)
+      selector:
+        entity:
+          filter:
+          - domain:
+            - binary_sensor
+          multiple: true
+    notification_message:
+      name: Notification message
+      description: 'Smoke Detector Activated Message'
+      default: 'Smoke Alarm Activated. Check for fire immediately.'
+    additional_actions:
+      name: Additional Actions After
+      description: Add additional actions to the script. Will execute after everything.
+        (optional) else.
+      default: []
+      selector:
+        action: {}
+trigger:
+- platform: state
+  entity_id: !input smokealarm
+  to: 'on'
+action:
+- service: notify.notify
+  data:
+    message: !input notification_message
+- choose: []
+  default: !input additional_actions

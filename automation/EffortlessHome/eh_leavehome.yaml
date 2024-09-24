@@ -1,0 +1,116 @@
+blueprint:
+  name: Leave Home
+  description: Actions to take a predetermined amount of time after no one is at the
+    home
+  domain: automation
+  author: EffortlessHome
+  input:
+    leave_trigger_delay:
+      name: Delay After Determination of No One At Home To Trigger Actions
+      description: Delay After Determination of No One At Home To Trigger Actions
+      default: 0
+      selector:
+        number:
+          min: 0.0
+          max: 300.0
+          unit_of_measurement: seconds
+          mode: slider
+          step: 1.0
+    securityalarm:
+      name: Security Alarm
+      description: The security alarm to arm in away mode
+      selector:
+        entity:
+          filter:
+          - domain:
+            - alarm_control_panel
+          multiple: false
+    doorlock:
+      name: Door Lock
+      description: The door lock to lock (optional)
+      default: []
+      selector:
+        entity:
+          filter:
+          - domain:
+            - lock
+          multiple: false
+    plugtoturnoff:
+      name: Plugs to turn off
+      description: Turn off these plugs (optional)
+      default: []
+      selector:
+        entity:
+          filter:
+          - domain:
+            - switch
+          multiple: true
+    lighttoturnoff:
+      name: Lights to turn off
+      description: Turn off these lights (optional)
+      default: []
+      selector:
+        entity:
+          filter:
+          - domain:
+            - light
+          multiple: true
+    window_sensor:
+      name: Window/Door Sensor
+      description: Select any door or window sensor(s) that you want to check is open.
+      selector:
+        entity:
+          domain:
+          - binary_sensor
+          device_class:
+          - window
+          - door
+          multiple: true
+    additional_actions:
+      name: Additional Actions
+      description: Add additional actions to complete. Will execute at the end.
+      default: []
+      selector:
+        action: {}
+trigger:
+- platform: state
+  entity_id: binary_sensor.someone_home_sensor
+  from: 'on'
+  to: 'off'
+  for:
+    hours: 0
+    minutes: 0
+    seconds: !input leave_trigger_delay
+condition:
+- condition: state
+  entity_id: effortlesshome.isrenteroccupied
+  state: 'off'
+action:
+- service: light.turn_off
+  target:
+    entity_id: !input lighttoturnoff
+- service: effortlesshome.arm
+  data:
+    mode: away
+    skip_delay: false
+    force: false
+    entity_id: !input securityalarm
+- service: switch.turn_off
+  target:
+    entity_id: !input plugtoturnoff
+- service: lock.lock
+  target:
+    entity_id: !input doorlock
+- if:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: !input window_sensor
+      state: 'on'
+  then:
+  - service: notify.notify
+    metadata: {}
+    data:
+      message: Door or Window Left Open
+- choose: []
+  default: !input additional_actions

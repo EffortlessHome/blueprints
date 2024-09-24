@@ -1,0 +1,46 @@
+blueprint:
+  name: Arrive Home
+  description: Set the actions to take when the first person to arrive home arrives
+  domain: automation
+  author: EffortlessHome
+  source_url: https://github.com/home-assistant/core/blob/dev/homeassistant/components/automation/blueprints/motion_light.yaml
+  input:
+    securityalarm:
+      name: Security Alarm
+      description: The security alarm to disable
+      selector:
+        entity:
+          filter:
+          - domain:
+            - alarm_control_panel
+          multiple: false
+    doorlock:
+      name: Door Lock
+      description: The door lock to unlock
+      selector:
+        entity:
+          filter:
+          - domain:
+            - lock
+          multiple: false
+    additional_actions:
+      name: Additional Actions
+      description: Add additional actions to the script. Will execute after everything
+        else.
+      default: []
+      selector:
+        action: {}
+trigger:
+- platform: state
+  entity_id: binary_sensor.someone_home_sensor
+  from: 'off'
+  to: 'on'
+action:
+- service: effortlesshome.disarm
+  data:
+    entity_id: !input securityalarm
+- service: lock.unlock
+  target:
+    entity_id: !input doorlock
+- choose: []
+  default: !input additional_actions

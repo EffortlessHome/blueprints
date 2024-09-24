@@ -1,0 +1,35 @@
+blueprint:
+  name: Carbon Monoxide Alarm Triggered
+  description: Set the actions to take when a carbon monoxide alarm is triggered
+  domain: automation
+  input:
+    carbonmonoxidealarm:
+      name: Carbon Monoxide Alarm Sensor
+      description: The triggering carbon monoxide alarm sensor(s)
+      selector:
+        entity:
+          filter:
+          - domain:
+            - binary_sensor
+          multiple: true
+    notification_message:
+      name: Notification message
+      description: 'Carbon Monoxide Alarm Message'
+      default: 'Carbon Monoxide Alarm Activated. Get to Safety and Check for CO immediately.'
+    additional_actions:
+      name: Additional Actions After
+      description: Add additional actions to the script. Will execute after everything.
+        (optional) else.
+      default: []
+      selector:
+        action: {}
+trigger:
+- platform: state
+  entity_id: !input carbonmonoxidealarm
+  to: 'on'
+action:
+- service: notify.notify
+  data:
+    message: !input notification_message
+- choose: []
+  default: !input additional_actions

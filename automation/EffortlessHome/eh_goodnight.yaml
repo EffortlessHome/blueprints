@@ -1,0 +1,120 @@
+blueprint:
+  name: Goodnight
+  description: Actions to take when going to bed for the night
+  domain: automation
+  author: EffortlessHome
+  input:
+    goodnight_time:
+      name: What time of the day will goodnight run
+      description: The time of day when this will run each day. You can run manually
+        instead it will only run once per day.
+      selector:
+        time: {}
+    lighttoturnon:
+      name: Lights to turn on
+      description: Turn on these lights (optional)
+      default: []
+      selector:
+        entity:
+          filter:
+          - domain:
+            - light
+          multiple: true
+    securityalarm:
+      name: Security Alarm
+      description: The security alarm to arm in night/home mode
+      selector:
+        entity:
+          filter:
+          - domain:
+            - alarm_control_panel
+          multiple: false
+    doorlock:
+      name: Door Lock
+      description: The door lock to lock
+      default: []
+      selector:
+        entity:
+          filter:
+          - domain:
+            - lock
+          multiple: false
+    plugtoturnoff:
+      name: Plugs to turn off
+      description: Turn off these plugs (optional)
+      default: []
+      selector:
+        entity:
+          filter:
+          - domain:
+            - switch
+          multiple: true
+    lighttoturnoff:
+      name: Lights to turn off
+      description: Turn off these lights (optional)
+      default: []
+      selector:
+        entity:
+          filter:
+          - domain:
+            - light
+          multiple: true
+    window_sensor:
+      name: Window/Door Sensor
+      description: Select any door or window sensor(s) that you want to check is open.
+      selector:
+        entity:
+          domain:
+          - binary_sensor
+          device_class:
+          - window
+          - door
+          multiple: true
+    additional_actions:
+      name: Additional Actions After
+      description: Add additional actions to the script. Will execute after everything.
+        (optional) else.
+      default: []
+      selector:
+        action: {}
+trigger:
+- at: !input goodnight_time
+  platform: time
+  enabled: true
+condition:
+- condition: state
+  entity_id: binary_sensor.sleeping_sensor
+  state: 'off'
+action:
+- if:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: !input window_sensor
+      state: 'on'
+  then:
+  - service: notify.notify
+    metadata: {}
+    data:
+      message: Door or Window Left Open
+- action: effortlesshome.changegoodnightranfordaystateservice
+  metadata: {}
+  data:
+    newstate: "on"
+- service: light.turn_on
+  target:
+    entity_id: !input lighttoturnon
+- service: effortlesshome.arm
+  data:
+    mode: home
+    skip_delay: false
+    force: false
+    entity_id: !input securityalarm
+- service: switch.turn_off
+  target:
+    entity_id: !input plugtoturnoff
+- service: lock.lock
+  target:
+    entity_id: !input doorlock
+- choose: []
+  default: !input additional_actions

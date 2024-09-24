@@ -1,0 +1,68 @@
+blueprint:
+  name: Water Alarm Triggered
+  description: Set the actions to take when a water alarm is triggered
+  domain: automation
+  input:
+    watersensor:
+      name: Water Leak Sensor
+      description: The triggering water leak sensor(s)
+      selector:
+        entity:
+          filter:
+          - domain:
+            - binary_sensor
+          multiple: true
+    notification_message:
+      name: Notification message
+      description: 'Water Leak Sensor Activated Message'
+      default: 'Water Sensor Activated. Check for water immediately.'
+    additional_actions:
+      name: Additional Actions
+      description: Add additional actions to the script. Will execute after everything
+        else.
+      default: []
+      selector:
+        action: {}
+    data_clickaction_url:
+      name: URL to Navigate (Optional)
+      description: The URL to navigate to when clicking on the notification. (default
+        = /lovelace)
+      default: /lovelace
+    action_type:
+      name: Action Type (EXPERIMENTAL)
+      description: 'Set action type, see [Actionable Notifications](https://companion.home-assistant.io/docs/notifications/actionable-notifications/).
+        default: URI'
+      default: URI
+    action_title:
+      name: Action Title (EXPERIMENTAL)
+      description: Title of action that will appear with the notification
+      default: Open Dashboard
+    action_uri:
+      name: Action URI (EXPERIMENTAL)
+      description: 'URI to naviagte to. default: /lovelace'
+      default: '{{ clickActionURL }}'
+trigger:
+- platform: state
+  entity_id: !input watersensor
+  to: 'on'
+variables:
+  clickActionURL: !input data_clickaction_url
+  action_type: !input action_type
+  action_title: !input action_title
+  action_uri: !input action_uri
+action:
+- service: notify.notify
+  data:
+    title: Water Sensor Activated
+    message: !input notification_message
+    data:
+      clickAction: !input data_clickaction_url
+      ttl: 0
+      priority: high
+      url: !input data_clickaction_url
+      actions:
+      - action: '{{ action_type }}'
+        title: '{{ action_title }}'
+        uri: '{{ action_uri }}'
+- choose: []
+  default: !input additional_actions
