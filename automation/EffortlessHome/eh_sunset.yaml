@@ -34,9 +34,9 @@ blueprint:
       selector:
         action: {}
 trigger:
-- platform: sun
-  event: sunset
-  offset: 0
+  - platform: sun
+    event: sunset
+    offset: 0
 condition:
 - condition: state
   entity_id: binary_sensor.someone_home_sensor

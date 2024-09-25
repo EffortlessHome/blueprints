@@ -29,9 +29,8 @@ blueprint:
       selector:
         action: {}
 trigger:
-- at: !input goodmorning_time
-  platform: time
-  enabled: true
+- platform: time
+  at: !input goodmorning_time
 condition:
 - condition: state
   entity_id: binary_sensor.someone_home_sensor
