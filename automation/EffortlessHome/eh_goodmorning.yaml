@@ -34,7 +34,7 @@ trigger:
 condition:
 - condition: state
   entity_id: binary_sensor.someone_home_sensor
-  state: 'on'
+  state: 'On'
 action:
 - service: effortlesshome.disarm
   data:
@@ -42,6 +42,6 @@ action:
 - action: effortlesshome.changegoodnightranfordaystateservice
   metadata: {}
   data:
-    newstate: "off"
+    newstate: "Off"
 - choose: []
   default: !input additional_actions

@@ -85,14 +85,14 @@ trigger:
 condition:
 - condition: state
   entity_id: binary_sensor.sleeping_sensor
-  state: 'off'
+  state: 'Off'
 action:
 - if:
   - condition: or
     conditions:
     - condition: state
       entity_id: !input window_sensor
-      state: 'on'
+      state: 'On'
   then:
   - service: notify.notify
     metadata: {}
@@ -101,7 +101,7 @@ action:
 - action: effortlesshome.changegoodnightranfordaystateservice
   metadata: {}
   data:
-    newstate: "on"
+    newstate: "On"
 - service: light.turn_on
   target:
     entity_id: !input lighttoturnon

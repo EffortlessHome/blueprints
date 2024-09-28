@@ -133,8 +133,8 @@ blueprint:
 trigger:
 - platform: state
   entity_id: !input sensor
-  from: 'off'
-  to: 'on'
+  from: 'Off'
+  to: 'On'
 variables:
   sensor: !input sensor
   sensor_name: '{{ states[sensor].name }}'

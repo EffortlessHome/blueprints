@@ -33,8 +33,8 @@ blueprint:
 trigger:
 - platform: state
   entity_id: binary_sensor.someone_home_sensor
-  from: 'off'
-  to: 'on'
+  from: 'Off'
+  to: 'On'
 action:
 - service: effortlesshome.disarm
   data:

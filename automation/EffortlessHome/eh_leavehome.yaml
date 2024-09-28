@@ -76,8 +76,8 @@ blueprint:
 trigger:
 - platform: state
   entity_id: binary_sensor.someone_home_sensor
-  from: 'on'
-  to: 'off'
+  from: 'On'
+  to: 'Off'
   for:
     hours: 0
     minutes: 0
@@ -85,7 +85,7 @@ trigger:
 condition:
 - condition: state
   entity_id: effortlesshome.isrenteroccupied
-  state: 'off'
+  state: 'Off'
 action:
 - service: light.turn_off
   target:
@@ -107,7 +107,7 @@ action:
     conditions:
     - condition: state
       entity_id: !input window_sensor
-      state: 'on'
+      state: 'On'
   then:
   - service: notify.notify
     metadata: {}

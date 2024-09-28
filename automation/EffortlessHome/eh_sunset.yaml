@@ -40,7 +40,7 @@ trigger:
 condition:
 - condition: state
   entity_id: binary_sensor.someone_home_sensor
-  state: 'on'
+  state: 'On'
 action:
 - service: light.turn_on
   target:

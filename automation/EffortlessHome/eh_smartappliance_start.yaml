@@ -87,7 +87,7 @@ trigger:
 condition:
 - condition: state
   entity_id: !input input_boolean
-  state: 'off'
+  state: 'Off'
 variables:
   clickActionURL: !input data_clickaction_url
   action_type: !input action_type

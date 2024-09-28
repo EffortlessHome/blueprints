@@ -62,13 +62,13 @@ max_exceeded: silent
 trigger:
 - platform: state
   entity_id: !input door_sensor
-  from: 'off'
-  to: 'on'
+  from: 'Off'
+  to: 'On'
   id: door-open
 - platform: state
   entity_id: !input door_sensor
-  from: 'on'
-  to: 'off'
+  from: 'On'
+  to: 'Off'
   id: door-closed
 condition:
 - condition: or
@@ -90,8 +90,8 @@ action:
   - wait_for_trigger:
     - platform: state
       entity_id: !input door_sensor
-      from: 'on'
-      to: 'off'
+      from: 'On'
+      to: 'Off'
     timeout: !input light_timeout
 - service: homeassistant.turn_off
   target: !input light_switch

@@ -28,7 +28,7 @@ blueprint:
 trigger:
 - platform: state
   entity_id: !input smokealarm
-  to: 'on'
+  to: 'On'
 action:
 - service: notify.notify
   data:

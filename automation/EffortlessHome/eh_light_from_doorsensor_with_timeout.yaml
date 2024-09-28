@@ -62,8 +62,8 @@ max_exceeded: silent
 trigger:
 - platform: state
   entity_id: !input door_sensor
-  from: 'off'
-  to: 'on'
+  from: 'Off'
+  to: 'On'
   id: door-open
 
 condition:

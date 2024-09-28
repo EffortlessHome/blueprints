@@ -98,7 +98,7 @@ action:
     while:
     - condition: state
       entity_id: !input input_boolean
-      state: 'off'
+      state: 'Off'
     sequence:
     - service: logbook.log
       data:

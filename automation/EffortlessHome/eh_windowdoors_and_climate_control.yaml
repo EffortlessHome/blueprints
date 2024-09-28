@@ -64,7 +64,7 @@ action:
   - conditions:
     - condition: state
       entity_id: !input window_sensor
-      state: 'on'
+      state: 'On'
     sequence:
     - delay: !input window_open_delay
     - service: climate.turn_off
@@ -81,7 +81,7 @@ action:
   - conditions:
     - condition: state
       entity_id: !input window_sensor
-      state: 'off'
+      state: 'Off'
     sequence:
     - delay: !input window_close_delay
     - service: scene.turn_on

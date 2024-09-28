@@ -38,8 +38,8 @@ max_exceeded: silent
 trigger:
   platform: state
   entity_id: !input motion_entity
-  from: 'off'
-  to: 'on'
+  from: 'Off'
+  to: 'On'
 action:
 - alias: Turn on the light
   service: light.turn_on
@@ -48,8 +48,8 @@ action:
   wait_for_trigger:
     platform: state
     entity_id: !input motion_entity
-    from: 'on'
-    to: 'off'
+    from: 'On'
+    to: 'Off'
 - alias: Wait the number of seconds that has been set
   delay: !input no_motion_wait
 - alias: Turn off the light
