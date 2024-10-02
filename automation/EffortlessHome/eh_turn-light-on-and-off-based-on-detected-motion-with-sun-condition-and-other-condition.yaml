@@ -59,8 +59,8 @@ max_exceeded: silent
 trigger:
   platform: state
   entity_id: !input motion_entity
-  from: 'Off'
-  to: 'On'
+  from: 'off'
+  to: 'on'
 condition:
 - condition: or
   conditions:
@@ -79,8 +79,8 @@ action:
 - wait_for_trigger:
     platform: state
     entity_id: !input motion_entity
-    from: 'On'
-    to: 'Off'
+    from: 'on'
+    to: 'off'
 - delay: !input no_motion_wait
 - service: light.turn_off
   target: !input light_target
