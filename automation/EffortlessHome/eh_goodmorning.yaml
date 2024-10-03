@@ -36,17 +36,18 @@ condition:
   entity_id: binary_sensor.someone_home_sensor
   state: 'On'
 action:
-- service: effortlesshome.disarm
+- action: effortlesshome.changegoodnightranfordaystateservice
+  metadata: {}
   data:
-    entity_id: !input securityalarm
+    newstate: "Off"
 - delay:
     hours: 0
     minutes: 1
     seconds: 0
     milliseconds: 0
-- action: effortlesshome.changegoodnightranfordaystateservice
-  metadata: {}
+- service: effortlesshome.disarm
   data:
-    newstate: "Off"
+    entity_id: !input securityalarm
+
 - choose: []
   default: !input additional_actions
