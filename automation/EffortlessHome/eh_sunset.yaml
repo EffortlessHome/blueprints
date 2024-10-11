@@ -11,11 +11,11 @@ blueprint:
       description: Turn on these lights (optional)
       default: []
       selector:
-        entity:
-          filter:
+        target:
+          entity:
           - domain:
             - light
-          multiple: true
+            - switch
     plugtoturnon:
       name: Plugs to turn on
       description: Turn on these plugs (optional)
