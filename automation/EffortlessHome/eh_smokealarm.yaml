@@ -13,6 +13,7 @@ blueprint:
           filter:
           - domain:
             - binary_sensor
+            - group
           multiple: true
     notification_message:
       name: Notification message
