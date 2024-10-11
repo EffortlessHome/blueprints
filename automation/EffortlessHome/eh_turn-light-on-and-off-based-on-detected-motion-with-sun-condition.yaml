@@ -11,6 +11,7 @@ blueprint:
         entity:
           domain:
           - binary_sensor
+          - group
           device_class:
           - motion
           - occupancy
