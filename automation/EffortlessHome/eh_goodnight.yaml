@@ -16,11 +16,11 @@ blueprint:
       description: Turn on these lights (optional)
       default: []
       selector:
-        entity:
-          filter:
+        target:
+          entity:
           - domain:
             - light
-          multiple: true
+            - switch
     securityalarm:
       name: Security Alarm
       description: The security alarm to arm in night/home mode
