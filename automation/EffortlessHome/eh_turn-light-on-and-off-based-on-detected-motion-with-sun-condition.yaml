@@ -70,7 +70,8 @@ condition:
     before: sunrise
     before_offset: !input sunrise_offset
 action:
-- service: light.turn_on
+- service: homeassistant.turn_on
+  data: {}
   target: !input light_target
 - wait_for_trigger:
     platform: state
@@ -78,5 +79,6 @@ action:
     from: 'On'
     to: 'Off'
 - delay: !input no_motion_wait
-- service: light.turn_off
+- service: homeassistant.turn_off
+  data: {}
   target: !input light_target
