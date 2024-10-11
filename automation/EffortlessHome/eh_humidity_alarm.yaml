@@ -13,6 +13,7 @@ blueprint:
           filter:
           - domain:
             - sensor
+            - group
           multiple: true
     low_trigger_humidity:
       description: Humidity % to use to trigger a low temp alert
