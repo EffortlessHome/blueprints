@@ -5,13 +5,11 @@ blueprint:
   author: EffortlessHome
   source_url: https://github.com/EffortlessHome/blueprints/raw/refs/heads/main/automation/EffortlessHome/eh_goodmorning.yaml
   input:
-
     goodmorning_time:
       name: What time of the day will goodmorning run
       description: The time of day when this will run each day.
       selector:
         time: {}
-
     securityalarm:
       name: Security Alarm
       description: The security alarm to disable
@@ -39,7 +37,7 @@ action:
 - action: effortlesshome.changegoodnightranfordaystateservice
   metadata: {}
   data:
-    newstate: "Off"
+    newstate: 'Off'
 - delay:
     hours: 0
     minutes: 1
@@ -48,6 +46,5 @@ action:
 - service: effortlesshome.disarm
   data:
     entity_id: !input securityalarm
-
 - choose: []
   default: !input additional_actions

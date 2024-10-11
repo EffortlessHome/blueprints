@@ -11,10 +11,19 @@ blueprint:
         instead it will only run once per day.
       selector:
         time: {}
-    lighttoturnon:
-      name: Lights to turn on
-      description: Turn on these lights (optional)
-      default: []
+
+    on_target:
+      name: Lights and switches to turn on
+      description: Turn on these lights and switches (optional)
+      selector:
+        target:
+          entity:
+          - domain:
+            - light
+            - switch
+    off_target:
+      name: Lights and switches to turn off
+      description: Turn off these lights and switches (optional)
       selector:
         target:
           entity:
@@ -40,36 +49,25 @@ blueprint:
           - domain:
             - lock
           multiple: false
-    plugtoturnoff:
-      name: Plugs to turn off
-      description: Turn off these plugs (optional)
-      default: []
+
+    wait_time:
+      name: Wait time
+      description: Time to wait before turning off lights and switches.
+      default: 300
       selector:
-        entity:
-          filter:
-          - domain:
-            - switch
-          multiple: true
-    lighttoturnoff:
-      name: Lights to turn off
-      description: Turn off these lights (optional)
-      default: []
-      selector:
-        entity:
-          filter:
-          - domain:
-            - light
-          multiple: true
+        number:
+          min: 0.0
+          max: 3000.0
+          unit_of_measurement: seconds
+          step: 1.0
+          mode: slider
     window_sensor:
-      name: Window/Door Sensor
-      description: Select any door or window sensor(s) that you want to check is open.
+      name: Window/Door Sensor Group(s)
+      description: Select any door or window sensor(s) to check for open state.
       selector:
         entity:
           domain:
-          - binary_sensor
-          device_class:
-          - window
-          - door
+          - group
           multiple: true
     additional_actions:
       name: Additional Actions After
@@ -101,21 +99,23 @@ action:
 - action: effortlesshome.changegoodnightranfordaystateservice
   metadata: {}
   data:
-    newstate: "On"
-- service: light.turn_on
+    newstate: 'On'
+- service: homeassistant.turn_on
+  data: {}
+  target: !input on_target
+- service: lock.lock
   target:
-    entity_id: !input lighttoturnon
+    entity_id: !input doorlock
 - service: effortlesshome.arm
   data:
     mode: home
     skip_delay: false
     force: false
     entity_id: !input securityalarm
-- service: switch.turn_off
-  target:
-    entity_id: !input plugtoturnoff
-- service: lock.lock
-  target:
-    entity_id: !input doorlock
+
 - choose: []
   default: !input additional_actions
+- delay: !input wait_time
+- service: homeassistant.turn_off
+  data: {}
+  target: !input off_target

@@ -10,13 +10,12 @@ blueprint:
   input:
     window_sensor:
       name: Window/Door Sensor
-      description: Select the sensor that monitors your doors and windows. Useful for controlling
+      description: Select the sensor that monitors your windows. Useful for controlling
         heating or cooling based on window status.
       selector:
         entity:
           domain:
           - binary_sensor
-          - group
           device_class:
           - window
           - door
@@ -65,7 +64,7 @@ action:
   - conditions:
     - condition: state
       entity_id: !input window_sensor
-      state: 'On'
+      state: 'on'
     sequence:
     - delay: !input window_open_delay
     - service: climate.turn_off
@@ -82,7 +81,7 @@ action:
   - conditions:
     - condition: state
       entity_id: !input window_sensor
-      state: 'Off'
+      state: 'off'
     sequence:
     - delay: !input window_close_delay
     - service: scene.turn_on

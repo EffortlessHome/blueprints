@@ -17,8 +17,8 @@ blueprint:
           multiple: true
     notification_message:
       name: Notification message
-      description: 'Smoke Detector Activated Message'
-      default: 'Smoke Alarm Activated. Check for fire immediately.'
+      description: Smoke Detector Activated Message
+      default: Smoke Alarm Activated. Check for fire immediately.
     additional_actions:
       name: Additional Actions After
       description: Add additional actions to the script. Will execute after everything.

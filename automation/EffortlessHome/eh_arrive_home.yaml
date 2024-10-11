@@ -5,6 +5,15 @@ blueprint:
   author: EffortlessHome
   source_url: https://github.com/EffortlessHome/blueprints/raw/refs/heads/main/automation/EffortlessHome/eh_arrive_home.yaml
   input:
+    on_target:
+      name: Lights and switches to turn on
+      description: Turn on these lights and switches (optional)
+      selector:
+        target:
+          entity:
+          - domain:
+            - light
+            - switch
     securityalarm:
       name: Security Alarm
       description: The security alarm to disable
@@ -36,6 +45,9 @@ trigger:
   from: 'Off'
   to: 'On'
 action:
+- service: homeassistant.turn_on
+  data: {}
+  target: !input on_target
 - service: effortlesshome.disarm
   data:
     entity_id: !input securityalarm

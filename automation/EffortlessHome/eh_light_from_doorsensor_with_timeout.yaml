@@ -2,9 +2,9 @@ blueprint:
   name: Turn On Light from Door Sensor with timeout
   description: Automatically actitvate a light with a door sensor attached to the
     door, activating a smart switch or light.  The light will turn off at the end
-    of a timer.  Logic is also implemented to turn off
-    the light in the event it's manually turned on while the door is open or after
-    the automation has already run.
+    of a timer.  Logic is also implemented to turn off the light in the event it's
+    manually turned on while the door is open or after the automation has already
+    run.
   domain: automation
   author: EffortlessHome
   source_url: https://github.com/EffortlessHome/blueprints/raw/refs/heads/main/automation/EffortlessHome/eh_light_from_doorsensor_with_timeout.yaml
@@ -65,7 +65,6 @@ trigger:
   from: 'Off'
   to: 'On'
   id: door-open
-
 condition:
 - condition: or
   conditions:
