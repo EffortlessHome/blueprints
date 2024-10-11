@@ -10,10 +10,7 @@ blueprint:
       selector:
         entity:
           domain:
-          - binary_sensor
           - group
-          device_class:
-          - motion
           multiple: false
     light_target:
       name: Light
