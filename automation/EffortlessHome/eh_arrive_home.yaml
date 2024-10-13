@@ -45,9 +45,7 @@ trigger:
   from: 'Off'
   to: 'On'
 action:
-- service: homeassistant.turn_on
-  data: {}
-  target: !input on_target
+
 - service: effortlesshome.disarm
   data:
     entity_id: !input securityalarm
@@ -56,3 +54,9 @@ action:
     entity_id: !input doorlock
 - choose: []
   default: !input additional_actions
+- condition: sun
+  before: sunrise
+  after: sunset
+- service: homeassistant.turn_on
+  data: {}
+  target: !input on_target
