@@ -84,3 +84,9 @@ action:
 - service: homeassistant.turn_off
   data: {}
   target: !input light_target
+#delay for 5 seconds to avoid retrigger by lights turning off
+- delay:
+  hours: 0
+  minutes: 0
+  seconds: 5
+  milliseconds: 0

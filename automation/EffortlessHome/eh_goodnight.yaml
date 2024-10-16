@@ -11,7 +11,6 @@ blueprint:
         instead it will only run once per day.
       selector:
         time: {}
-
     on_target:
       name: Lights and switches to turn on
       description: Turn on these lights and switches (optional)
@@ -49,7 +48,6 @@ blueprint:
           - domain:
             - lock
           multiple: false
-
     wait_time:
       name: Wait time
       description: Time to wait before turning off lights and switches.
@@ -112,7 +110,6 @@ action:
     skip_delay: false
     force: false
     entity_id: !input securityalarm
-
 - choose: []
   default: !input additional_actions
 - delay: !input wait_time

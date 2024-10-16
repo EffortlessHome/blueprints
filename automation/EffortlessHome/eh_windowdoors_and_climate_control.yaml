@@ -54,8 +54,8 @@ blueprint:
           step: 1.0
     notification_message:
       name: Notification message
-      description: 'Climate Control Disabled Message'
-      default: 'Climate Control Temporarily Disabled Due to Open Window/Door'
+      description: Climate Control Disabled Message
+      default: Climate Control Temporarily Disabled Due to Open Window/Door
 trigger:
 - platform: state
   entity_id: !input window_sensor

@@ -16,8 +16,8 @@ blueprint:
           multiple: true
     notification_message:
       name: Notification message
-      description: 'Water Leak Sensor Activated Message'
-      default: 'Water Sensor Activated. Check for water immediately.'
+      description: Water Leak Sensor Activated Message
+      default: Water Sensor Activated. Check for water immediately.
     additional_actions:
       name: Additional Actions
       description: Add additional actions to the script. Will execute after everything

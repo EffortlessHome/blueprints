@@ -1,5 +1,5 @@
 blueprint:
-  name: Smart Appliance Conversion Start Automation
+  name: Smart Appliance Conversion End Automation
   description: Set the actions to take to convert a dumb appliance to smart
   domain: automation
   author: EffortlessHome
@@ -16,12 +16,12 @@ blueprint:
             - sensor
           multiple: false
     trigger_poweruseage:
-      description: The amount of power usage to trigger the running state
+      description: The amount of power usage to trigger the stopped state
       name: Trigger Power Usage
-      default: 40
+      default: 5
       selector:
         number:
-          min: 1.0
+          min: 0.0
           max: 99.0
           unit_of_measurement: watts
           step: 1.0
@@ -29,7 +29,7 @@ blueprint:
     powerusagelevel_time:
       name: Power Usage Time At Level
       description: How long in seconds should the power usage be at that amount to
-        confirm appliance started?
+        confirm appliance stopped?
       default: 300
       selector:
         number:
@@ -49,8 +49,8 @@ blueprint:
           multiple: false
     notification_message:
       name: Notification message
-      description: 'Default: Appliance Started'
-      default: Appliance Started
+      description: 'Default: Appliance Stopped'
+      default: Appliance Stopped
     additional_actions:
       name: Additional Actions
       description: Add additional actions to the script. Will execute after everything
@@ -79,7 +79,7 @@ blueprint:
 trigger:
 - platform: numeric_state
   entity_id: !input powermonitoringsensor
-  above: !input trigger_poweruseage
+  below: !input trigger_poweruseage
   for:
     hours: 0
     minutes: 0
@@ -87,7 +87,7 @@ trigger:
 condition:
 - condition: state
   entity_id: !input input_boolean
-  state: 'off'
+  state: 'on'
 variables:
   clickActionURL: !input data_clickaction_url
   action_type: !input action_type
@@ -107,7 +107,7 @@ action:
       - action: '{{ action_type }}'
         title: '{{ action_title }}'
         uri: '{{ action_uri }}'
-- service: input_boolean.turn_on
+- service: input_boolean.turn_off
   target:
     entity_id: !input input_boolean
 - choose: []

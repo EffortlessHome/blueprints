@@ -7,9 +7,10 @@ blueprint:
   input:
     include_button:
       name: Use The Button Helper Trigger (Optional)
-      description: 'Select if you would like a button helper to trigger the automation.
+      description: Select if you would like a button helper to trigger the automation.
         This is useful if you would like to check the battery levels by pressing a
-        button in the UI. For more information on how to create a button helper [Click Here](https://community.home-assistant.io/t/653754/4)'
+        button in the UI. For more information on how to create a button helper [Click
+        Here](https://community.home-assistant.io/t/653754/4)
       default: disable_button_trigger
       selector:
         select:

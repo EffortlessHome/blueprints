@@ -38,8 +38,8 @@ blueprint:
           mode: slider
     notification_message:
       name: Notification message
-      description: 'Humidity Sensor Activated Message'
-      default: 'Humidity Sensor Activated.'
+      description: Humidity Sensor Activated Message
+      default: Humidity Sensor Activated.
     additional_actions:
       name: Additional Actions
       description: Add additional actions to the script. Will execute after everything

@@ -45,7 +45,6 @@ trigger:
   from: 'Off'
   to: 'On'
 action:
-
 - service: effortlesshome.disarm
   data:
     entity_id: !input securityalarm
