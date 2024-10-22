@@ -1,5 +1,5 @@
 blueprint:
-  name: Report offline zigbee/zwave/battery/smart plug devices
+  name: Report offline smart devices
   description: Works with Smart Plugs, ZWave, Zigbee etc.
   domain: automation
   author: EffortlessHome
@@ -11,17 +11,6 @@ blueprint:
       default: '10:00:00'
       selector:
         time: {}
-    day:
-      name: Weekday to test on
-      description: 'Test is run at configured time either everyday (0) or on a given
-        weekday (1: Monday ... 7: Sunday)'
-      default: 0
-      selector:
-        number:
-          min: 0.0
-          max: 7.0
-          mode: slider
-          step: 1.0
     exclude:
       name: Excluded Sensors
       description: Battery sensors (e.g. smartphone) to exclude from detection. Only
@@ -41,7 +30,6 @@ blueprint:
       selector:
         action: {}
 variables:
-  day: !input day
   exclude: !input exclude
   offline_devices: "{% set result = namespace(offline_devices=[]) %} {% for sensor
     in states.sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class',
@@ -60,8 +48,7 @@ trigger:
 - platform: time
   at: !input time
 condition:
-- '{{ offline_devices != '''' and (day | int == 0 or day | int == now().isoweekday())
-  }}'
+- '{{ offline_devices != '''' }}'
 action:
 - choose: []
   default: !input actions

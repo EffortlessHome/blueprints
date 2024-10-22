@@ -11,7 +11,7 @@ blueprint:
       name: Days Of History To Retain
       description: The number of days of event and sensor history to retain. Default
         is 14 days.
-      default: 14
+      default: 30
       selector:
         number:
           min: 1.0
