@@ -68,6 +68,5 @@ For bug reports or feature requests, please open an issue in this repository.
 
 License
 
-This repository is licensed under the MIT License. See the LICENSE file for more details.
+This repository is licensed under the Apache 2.0 License. See the LICENSE file for more details.
 
-This README.md will guide users through installing and using the blueprints, as well as how they can contribute to the project. If you have specific blueprints already in the repository, you can add more detailed descriptions under the “Available Blueprints” section.
