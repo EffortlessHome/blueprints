@@ -23,6 +23,7 @@ blueprint:
           - device_class:
             - battery
             - switch
+            - sensor
     actions:
       name: Actions
       description: Call your notification here. {{offline_devices}} will replaced
